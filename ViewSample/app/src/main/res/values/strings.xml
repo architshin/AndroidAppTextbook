@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 『Androidアプリ開発の教科書』
-第2章
+第3章
 画面部品サンプル
 
 @author Shinzo SAITO
@@ -11,7 +11,7 @@ res/values/string.xmlファイル
 <resources>
 
 	<string name="app_name">画面部品サンプル</string>
-	<string name="tv_msg">お名前を入力してください。</string>  *2/*
+	<string name="tv_msg">お名前を入力してください。</string>
 	<string name="bt_save">保存</string>
 	<string name="cb_drink">ドリンク</string>
 	<string name="cb_food">フード</string>
