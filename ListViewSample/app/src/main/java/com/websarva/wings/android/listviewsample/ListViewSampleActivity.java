@@ -28,7 +28,7 @@ public class ListViewSampleActivity extends AppCompatActivity {
 	}
 
 	/**
-	 * リストが選択されたときの処理が記述されたメンバクラス。
+	 * リストがタップされたときの処理が記述されたメンバクラス。
 	 */
 	private class ListItemClickListener implements AdapterView.OnItemClickListener {
 
