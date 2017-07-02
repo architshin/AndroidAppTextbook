@@ -34,13 +34,13 @@ public class MenuListActivity extends AppCompatActivity {
 		//SimpleAdapterで使用するListオブジェクトを用意。
 		List<Map<String, String>> menuList = new ArrayList<Map<String, String>>();
 
-		//「から揚げ定食」のデータを格納するMapオブジェクトの用意とデータ登録。
+		//「から揚げ定食」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
 		Map<String, String> menu = new HashMap<String, String>();
 		menu.put("name", "から揚げ定食");
 		menu.put("price", "800円");
 		menuList.add(menu);
 
-		//「ハンバーグ定食」のデータを格納するMapオブジェクトの用意とデータ登録。
+		//「ハンバーグ定食」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
 		menu = new HashMap<String, String>();
 		menu.put("name", "ハンバーグ定食");
 		menu.put("price", "850円");
@@ -112,7 +112,7 @@ public class MenuListActivity extends AppCompatActivity {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			//タップされた行のデータを取得。SimpleAdapterでは1行文のデータはMap型!
+			//タップされた行のデータを取得。SimpleAdapterでは1行分のデータはMap型!
 			Map<String, String> item = (Map<String, String>) parent.getItemAtPosition(position);
 			//定食名と金額を取得。
 			String menuName = item.get("name");
