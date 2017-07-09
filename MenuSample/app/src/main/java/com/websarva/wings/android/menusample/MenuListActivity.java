@@ -3,6 +3,9 @@ package com.websarva.wings.android.menusample;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -61,6 +64,41 @@ public class MenuListActivity extends AppCompatActivity {
 
 		//リストタップのリスナクラス登録。
 		_lvMenu.setOnItemClickListener(new ListItemClickListener());
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		//メニューインフレーターの取得。
+		MenuInflater inflater = getMenuInflater();
+		//オプションメニュー用xmlファイルをインフレイト。
+		inflater.inflate(R.menu.menu_options_menu_list, menu);
+		//親クラスの同名メソッドを呼び出し、その戻り値を返却。
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		//選択されたメニューのIDを取得。
+		int itemId = item.getItemId();
+		//IDのR値による処理の分岐。
+		switch(itemId) {
+			//定食メニューが選択された場合の処理。
+			case R.id.menuListOptionTeishoku:
+				//定食メニューリストデータの生成。
+				_menuList = createTeishokuList();
+				break;
+			//カレーメニューが選択された場合の処理。
+			case R.id.menuListOptionCurry:
+				//カレーメニューリストデータの生成。
+				_menuList = createCurryList();
+				break;
+		}
+		//SimpleAdapterを選択されたメニューデータで生成。
+		SimpleAdapter adapter = new SimpleAdapter(MenuListActivity.this, _menuList, R.layout.row, FROM, TO);
+		//アダプタの登録。
+		_lvMenu.setAdapter(adapter);
+		//親クラスの同名メソッドを呼び出し、その戻り値を返却。
+		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -139,6 +177,63 @@ public class MenuListActivity extends AppCompatActivity {
 		menu.put("name", "焼肉定食");
 		menu.put("price", 950);
 		menu.put("desc", "特性たれの焼肉にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		return menuList;
+	}
+
+	/**
+	 * リストビューに表示させるカレーリストデータを生成するメソッド。
+	 *
+	 * @return 生成されたカレーリストデータ。
+	 */
+	private List<Map<String, Object>> createCurryList() {
+		//カレーメニューリスト用のListオブジェクトを用意。
+		List<Map<String, Object>> menuList = new ArrayList<Map<String,Object>>();
+
+		//「ビーフカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
+		Map<String, Object> menu = new HashMap<String, Object>();
+		menu.put("name", "ビーフカレー");
+		menu.put("price", 520);
+		menu.put("desc", "特選スパイスをきかせた国産ビーフ100%のカレーです。");
+		menuList.add(menu);
+
+		//「ポークカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
+		menu = new HashMap<String, Object>();
+		menu.put("name", "ポークカレー");
+		menu.put("price", 420);
+		menu.put("desc", "特選スパイスをきかせた国産ポーク100%のカレーです。");
+		menuList.add(menu);
+
+		//以下データ登録の繰り返し。
+		menu = new HashMap<String, Object>();
+		menu.put("name", "ハンバーグカレー");
+		menu.put("price", 620);
+		menu.put("desc", "特選スパイスをきかせたカレーに手ごねハンバーグをトッピングです。");
+		menuList.add(menu);
+
+		menu = new HashMap<String, Object>();
+		menu.put("name", "チーズカレー");
+		menu.put("price", 560);
+		menu.put("desc", "特選スパイスをきかせたカレーにとろけるチーズをトッピングです。");
+		menuList.add(menu);
+
+		menu = new HashMap<String, Object>();
+		menu.put("name", "カツカレー");
+		menu.put("price", 760);
+		menu.put("desc", "特選スパイスをきかせたカレーに国産ロースカツをトッピングです。");
+		menuList.add(menu);
+
+		menu = new HashMap<String, Object>();
+		menu.put("name", "ビーフカツカレー");
+		menu.put("price", 880);
+		menu.put("desc", "特選スパイスをきかせたカレーに国産ビーフカツをトッピングです。");
+		menuList.add(menu);
+
+		menu = new HashMap<String, Object>();
+		menu.put("name", "からあげカレー");
+		menu.put("price", 540);
+		menu.put("desc", "特選スパイスをきかせたカレーに若鳥のから揚げをトッピングです。");
 		menuList.add(menu);
 
 		return menuList;
