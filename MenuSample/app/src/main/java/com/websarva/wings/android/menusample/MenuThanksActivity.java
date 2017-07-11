@@ -40,7 +40,7 @@ public class MenuThanksActivity extends AppCompatActivity {
 
 		//アクションバーを取得。
 		ActionBar actionBar = getSupportActionBar();
-		//アクションバーに［戻る］メニューを有効に変更。
+		//アクションバーの［戻る］メニューを有効に設定。
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
