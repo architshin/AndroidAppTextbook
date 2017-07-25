@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,13 @@ public class MenuListFragment extends Fragment {
 	 * このフラグメントが所属するアクティビティオブジェクト。
 	 */
 	private Activity _parentActivity;
+
+	/**
+	 * 大画面かどうかの判定フラグ。
+	 * trueが大画面、falseが通常画面。
+	 * 判定ロジックは同一画面に注文完了表示用フレームレイアウトが存在するかで行う。
+	 */
+	private boolean _isLayoutXLarge = true;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -123,6 +132,19 @@ public class MenuListFragment extends Fragment {
 		return view;
 	}
 
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		//親クラスのメソッド呼び出し。
+		super.onActivityCreated(savedInstanceState);
+		//自分が所属するアクティビティからmenuThanksFrameを取得。
+		View menuThanksFrame = _parentActivity.findViewById(R.id.menuThanksFrame);
+		//menuThanksFrameがnull、つまり存在しないなら…
+		if(menuThanksFrame == null) {
+			//画面判定フラグを通常画面とする。
+			_isLayoutXLarge = false;
+		}
+	}
+
 	/**
 	 * リストがタップされたときの処理が記述されたメンバクラス。
 	 */
@@ -130,19 +152,41 @@ public class MenuListFragment extends Fragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			//タップされた行のデータを取得。SimpleAdapterでは1行分のデータはMap型!
+			//タップされた行のデータを取得。
 			Map<String, String> item = (Map<String, String>) parent.getItemAtPosition(position);
 			//定食名と金額を取得。
 			String menuName = item.get("name");
 			String menuPrice = item.get("price");
+			//引き継ぎデータをまとめて格納できるBundleオブジェクト生成。
+			Bundle bundle = new Bundle();
+			//Bundleオブジェクトに引き継ぎデータを格納。
+			bundle.putString("menuName", menuName);
+			bundle.putString("menuPrice", menuPrice);
 
-			//インテントオブジェクトを生成。
-			Intent intent = new Intent(_parentActivity, MenuThanksActivity.class);
-			//第2画面に送るデータを格納。
-			intent.putExtra("menuName", menuName);
-			intent.putExtra("menuPrice", menuPrice);
-			//第2画面の起動。
-			startActivity(intent);
+			//大画面の場合。
+			if(_isLayoutXLarge) {
+				//フラグメントマネージャーの取得。
+				FragmentManager manager = getFragmentManager();
+				//フラグメントトランザクションの開始。
+				FragmentTransaction transaction = manager.beginTransaction();
+				//注文完了フラグメントを生成。
+				MenuThanksFragment menuThanksFragment = new MenuThanksFragment();
+				//引き継ぎデータを注文完了フラグメントに格納。
+				menuThanksFragment.setArguments(bundle);
+				//生成した注文完了フラグメントをmenuThanksFrameレイアウト部品に追加(置き換え)。
+				transaction.replace(R.id.menuThanksFrame, menuThanksFragment);
+				//フラグメントトランザクションのコミット。
+				transaction.commit();
+			}
+			//通常画面の場合。
+			else {
+				//インテントオブジェクトを生成。
+				Intent intent = new Intent(_parentActivity, MenuThanksActivity.class);
+				//第2画面に送るデータを格納。ここでは、Bundleオブジェクトとしてまとめて格納。
+				intent.putExtras(bundle);
+				//第2画面の起動。
+				startActivity(intent);
+			}
 		}
 	}
 }
