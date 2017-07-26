@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第10章
+データベースサンプル
+
+@author Shinzo SAITO
+
+res/values/string.xmlファイル
+-->
+<resources>
+	<string name="app_name">データベースサンプル</string>
+	<string-array name="lv_cocktaillist">
+		<item>ホワイトレディー</item>
+		<item>バラライカ</item>
+		<item>XYZ</item>
+		<item>ニューヨーク</item>
+		<item>マンハッタン</item>
+		<item>ミシシッピミュール</item>
+		<item>ブルーハワイ</item>
+	</string-array>
+	<string name="tv_navi">カクテルの評価と感想を入力してください。</string>
+	<string name="tv_name">選択されたカクテル:</string>
+	<string name="tv_rate">評価:</string>
+	<string name="tv_note">感想:</string>
+	<string name="menu_save">保存</string>
+</resources>
