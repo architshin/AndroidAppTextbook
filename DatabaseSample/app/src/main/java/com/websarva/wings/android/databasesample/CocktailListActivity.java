@@ -24,7 +24,9 @@ public class CocktailListActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cocktail_list);
 
+		//カクテルリスト用ListView(lvCocktail)を取得。
 		ListView lvCocktail = (ListView) findViewById(R.id.lvCocktail);
+		//lvCocktailにリスナを登録。
 		lvCocktail.setOnItemClickListener(new ListItemClickListener());
 	}
 
@@ -35,11 +37,15 @@ public class CocktailListActivity extends AppCompatActivity {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			//タップされた行のデータを取得。これがカクテル名となる。
 			String cocktailName = (String) parent.getItemAtPosition(position);
 
+			//インテントオブジェクトを生成。
 			Intent intent = new Intent(CocktailListActivity.this, CocktailMemoActivity.class);
+			//インテントにポジションとカクテル名を格納。
 			intent.putExtra("position", position);
 			intent.putExtra("cocktailName", cocktailName);
+			//カクテル評価画面を起動。
 			startActivity(intent);
 		}
 	}
