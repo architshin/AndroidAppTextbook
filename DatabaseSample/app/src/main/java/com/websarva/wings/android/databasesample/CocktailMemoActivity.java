@@ -20,9 +20,9 @@ import android.widget.TextView;
  */
 public class CocktailMemoActivity extends AppCompatActivity {
 	/**
-	 * リスト画面でタップされたポジションを保持するフィールド。
+	 * リスト画面でタップされた主キーとなるポジションを保持するフィールド。
 	 */
-	private int _position = 0;
+	private int _id = 0;
 
 	/**
 	 * リスト画面でタップされたカクテル名を保持するフィールド。
@@ -36,8 +36,8 @@ public class CocktailMemoActivity extends AppCompatActivity {
 
 		//インテントオブジェクトを取得。
 		Intent intent = getIntent();
-		//引き継ぎデータとしてポジションとカクテル名を取得し、フィールドに格納。
-		_position = intent.getIntExtra("position", 0);
+		//引き継ぎデータとして主キーとなるポジションとカクテル名を取得し、フィールドに格納。
+		_id = intent.getIntExtra("id", 0);
 		_cocktailName = intent.getStringExtra("cocktailName");
 
 		//カクテル名を表示するTextViewを取得し、カクテル名を設定。

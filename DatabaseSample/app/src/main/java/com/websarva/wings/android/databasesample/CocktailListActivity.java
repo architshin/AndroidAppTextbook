@@ -42,8 +42,8 @@ public class CocktailListActivity extends AppCompatActivity {
 
 			//インテントオブジェクトを生成。
 			Intent intent = new Intent(CocktailListActivity.this, CocktailMemoActivity.class);
-			//インテントにポジションとカクテル名を格納。
-			intent.putExtra("position", position);
+			//インテントに主キーとなるポジションとカクテル名を格納。
+			intent.putExtra("id", position);
 			intent.putExtra("cocktailName", cocktailName);
 			//カクテル評価画面を起動。
 			startActivity(intent);
