@@ -17,15 +17,6 @@ import android.widget.TextView;
 /**
  * 『Androidアプリ開発の教科書』
  * 第10章
- * データベースサンプル改
- *
- * カクテルメモアクティビティクラス。
- *
- * @author Shinzo SAITO
- */
-/**
- * 『Androidアプリ開発の教科書』
- * 第10章
  * データベースサンプル
  *
  * カクテルメモアクティビティクラス。

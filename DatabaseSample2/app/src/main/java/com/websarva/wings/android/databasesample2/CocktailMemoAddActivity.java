@@ -11,6 +11,15 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+/**
+ * 『Androidアプリ開発の教科書』
+ * 第10章
+ * データベースサンプル改
+ *
+ * カクテルメモ登録アクティビティクラス。
+ *
+ * @author Shinzo SAITO
+ */
 public class CocktailMemoAddActivity extends AppCompatActivity {
 
 	@Override
