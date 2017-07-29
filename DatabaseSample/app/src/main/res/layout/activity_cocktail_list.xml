@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第10章
+データベースサンプル
+
+@author Shinzo SAITO
+
+ファイル名=activity_cocktail_list.xml
+-->
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+		  android:id="@+id/lvCocktail"
+		  android:entries="@array/lv_cocktaillist"
+		  android:layout_width="match_parent"
+		  android:layout_height="match_parent" />
