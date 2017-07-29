@@ -2,7 +2,7 @@
 <!--
 『Androidアプリ開発の教科書』
 第10章
-データベースサンプル
+データベースサンプル改
 
 @author Shinzo SAITO
 
@@ -11,8 +11,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	  xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
-		android:id="@+id/menuOptionsSave"
-		android:icon="@android:drawable/ic_menu_save"
-		android:title="@string/menu_save"
+		android:id="@+id/menuOptionsAdd"
+		android:icon="@android:drawable/ic_menu_add"
+		android:title="@string/menu_add"
 		app:showAsAction="always"/>
 </menu>

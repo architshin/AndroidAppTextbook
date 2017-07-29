@@ -1,4 +1,4 @@
-package com.websarva.wings.android.databasesample;
+package com.websarva.wings.android.databasesample2;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +14,15 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+/**
+ * 『Androidアプリ開発の教科書』
+ * 第10章
+ * データベースサンプル改
+ *
+ * カクテルメモアクティビティクラス。
+ *
+ * @author Shinzo SAITO
+ */
 /**
  * 『Androidアプリ開発の教科書』
  * 第10章
@@ -46,8 +55,8 @@ public class CocktailMemoActivity extends AppCompatActivity {
 		_cocktailName = intent.getStringExtra("cocktailName");
 
 		//カクテル名を表示するTextViewを取得し、カクテル名を設定。
-		TextView tvCocktailName = (TextView) findViewById(R.id.tvCocktailName);
-		tvCocktailName.setText(_cocktailName);
+		TextView tvCacktailName = (TextView) findViewById(R.id.tvCocktailName);
+		tvCacktailName.setText(_cocktailName);
 
 		//データベースヘルパーオブジェクトを作成。
 		DatabaseHelper helper = new DatabaseHelper(CocktailMemoActivity.this);

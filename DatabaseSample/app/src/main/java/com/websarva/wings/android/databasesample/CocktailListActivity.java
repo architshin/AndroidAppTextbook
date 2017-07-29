@@ -45,7 +45,7 @@ public class CocktailListActivity extends AppCompatActivity {
 			//インテントに主キーとなるポジションとカクテル名を格納。
 			intent.putExtra("id", position);
 			intent.putExtra("cocktailName", cocktailName);
-			//カクテル評価画面を起動。
+			//カクテルメモ画面を起動。
 			startActivity(intent);
 		}
 	}
