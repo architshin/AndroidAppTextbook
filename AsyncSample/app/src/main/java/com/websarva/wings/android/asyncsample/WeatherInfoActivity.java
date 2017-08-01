@@ -107,6 +107,14 @@ public class WeatherInfoActivity extends AppCompatActivity {
 			//取得した都市名をtvCityNameに設定。
 			TextView tvCityName = (TextView) findViewById(R.id.tvCityName);
 			tvCityName.setText(cityName + "の天気: ");
+			//天気情報を表示するTextViewを取得。
+			TextView tvWeatherTelop = (TextView) findViewById(R.id.tvWeatherTelop);
+			//天気詳細情報を表示するTextViewを取得。
+			TextView tvWeatherDesc = (TextView) findViewById(R.id.tvWeatherDesc);
+			//WeatherInfoReceiverをnew。引数として上で取得したTextViewを渡す。
+			WeatherInfoReceiver receiver = new WeatherInfoReceiver(tvWeatherTelop, tvWeatherDesc);
+			//WeatherInfoReceiverを実行。
+			receiver.execute(cityId);
 		}
 	}
 
@@ -145,6 +153,43 @@ public class WeatherInfoActivity extends AppCompatActivity {
 			//天気情報サービスから取得したJSON文字列。天気情報が格納されている。
 			String result = "";
 
+			//http接続を行うHttpURLConnectionオブジェクトを宣言。finallyで確実に解放するためにtry外で宣言。
+			HttpURLConnection con = null;
+			//http接続のレスポンスデータとして取得するInputStreamオブジェクトを宣言。finallyで確実に解放するためにtry外で宣言。
+			InputStream is = null;
+			try {
+				//URLオブジェクトを生成。
+				URL url = new URL(urlStr);
+				//URLオブジェクトからHttpURLConnectionオブジェクトを取得。
+				con = (HttpURLConnection) url.openConnection();
+				//http接続メソッドを設定。
+				con.setRequestMethod("GET");
+				//接続。
+				con.connect();
+				//HttpURLConnectionオブジェクトからレスポンスデータを取得。
+				is = con.getInputStream();
+				//レスポンスデータであるInputStreamオブジェクトを文字列に変換。
+				result = is2String(is);
+			}
+			catch(MalformedURLException ex) {
+			}
+			catch(IOException ex) {
+			}
+			finally {
+				//HttpURLConnectionオブジェクトがnullでないなら解放。
+				if(con != null) {
+					con.disconnect();
+				}
+				//InputStreamオブジェクトがnullでないなら解放。
+				if(is != null) {
+					try {
+						is.close();
+					}
+					catch(IOException ex) {
+					}
+				}
+			}
+
 			//JSON文字列を返す。
 			return result;
 		}
@@ -155,9 +200,44 @@ public class WeatherInfoActivity extends AppCompatActivity {
 			String telop = "";
 			String desc = "";
 
-			//天気上表用文字列をTextViewにセット。
+			try {
+				//JSON文字列からJSONObjectオブジェクトを生成。これをルートJSONオブジェクトとする。
+				JSONObject rootJSON = new JSONObject(result);
+				//ルートJSONオブジェクト直下の「description」プロパティで指定できるJSONオブジェクトをJSONObjectオブジェクトとして取得。
+				JSONObject descriptionJSON = rootJSON.getJSONObject("description");
+				//「description」プロパティ直下の「text」プロパティで指定できる文字列(天気概況文)を取得。
+				desc = descriptionJSON.getString("text");
+				//ルートJSONオブジェクト直下の「forecasts」プロパティで指定できるJSON配列オブジェクトをJSONArrayオブジェクトとして取得。
+				JSONArray forecasts = rootJSON.getJSONArray("forecasts");
+				//「forecasts」プロパティのJSON配列オブジェクトのひとつ目(インデックス0)のJSONオブジェクトをJSONObjectオブジェクトとして取得。
+				JSONObject forecastNow = forecasts.getJSONObject(0);
+				//「forecasts」ひとつ目のJSONオブジェクトから「telop」プロパティで指定できる文字列(天気)を取得。
+				telop = forecastNow.getString("telop");
+			}
+			catch(JSONException ex) {
+			}
+
+			//天気情報用文字列をTextViewにセット。
 			_tvWeatherTelop.setText(telop);
 			_tvWeatherDesc.setText(desc);
+		}
+
+		/**
+		 * InputStreamオブジェクトを文字列に変換するメソッド。変換文字コードはUTF-8。
+		 *
+		 * @param is 変換対象のInputStreamオブジェクト。
+		 * @return 変換された文字列。
+		 * @throws IOException 変換に失敗した時に発生。
+		 */
+		private String is2String(InputStream is) throws IOException {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+			StringBuffer sb = new StringBuffer();
+			char[] b = new char[1024];
+			int line;
+			while(0 <= (line = reader.read(b))) {
+				sb.append(b, 0, line);
+			}
+			return sb.toString();
 		}
 	}
 }
