@@ -30,7 +30,7 @@ import java.util.Map;
  * 第11章
  * クラウド連携サンプル
  *
- * カクテルメモアクティビティクラス。
+ * アクティビティクラス。
  *
  * @author Shinzo SAITO
  */
