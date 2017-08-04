@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import java.io.IOException;
 
@@ -66,9 +67,14 @@ public class MediaControlActivity extends AppCompatActivity {
 			//非同期でメディア再生を準備。
 			_player.prepareAsync();
 		}
-		catch (IOException e) {
+		catch(IOException e) {
 			e.printStackTrace();
 		}
+
+		//スイッチを取得。
+		Switch loopSwitch = (Switch) findViewById(R.id.swLoop);
+		//スイッチにリスナを設定。
+		loopSwitch.setOnCheckedChangeListener(new LoopSwitchChangedListener());
 	}
 
 	@Override
@@ -92,12 +98,46 @@ public class MediaControlActivity extends AppCompatActivity {
 	 * @param view 画面部品
 	 */
 	public void onPlayButtonClick(View view) {
+		//プレーヤーが再生だったら…
+		if(_player.isPlaying()) {
+			//プレーヤーを一時停止。
+			_player.pause();
+			//再生ボタンのラベルを「再生」に設定。
+			_btPlay.setText(R.string.bt_play_play);
+		}
 		//プレーヤーが再生中じゃなかったら…
-		if(!_player.isPlaying()) {
+		else {
 			//プレーヤーを再生。
 			_player.start();
 			//再生ボタンのラベルを「一時停止」に設定。
 			_btPlay.setText(R.string.bt_play_pause);
+		}
+	}
+
+	/**
+	 * 戻るボタンタップ時の処理メソッド。
+	 *
+	 * @param view 画面部品
+	 */
+	public void onBackButtonClick(View view) {
+		//再生位置を先頭に変更。
+		_player.seekTo(0);
+	}
+
+	/**
+	 * 進むボタンタップ時の処理メソッド。
+	 *
+	 * @param view 画面部品
+	 */
+	public void onForwardButtonClick(View view) {
+		//現在再生中のメディファイルの長さを取得。
+		int duration = _player.getDuration();
+		//再生位置を終端に変更。
+		_player.seekTo(duration);
+		//再生中でないなら…
+		if(!_player.isPlaying()) {
+			//再生を開始。
+			_player.start();
 		}
 	}
 
@@ -122,8 +162,23 @@ public class MediaControlActivity extends AppCompatActivity {
 
 		@Override
 		public void onCompletion(MediaPlayer mp) {
-			//再生ボタンのラベルを「再生」に設定。
-			_btPlay.setText(R.string.bt_play_play);
+			//ループ設定がされていないならば…
+			if(!_player.isLooping()) {
+				//再生ボタンのラベルを「再生」に設定。
+				_btPlay.setText(R.string.bt_play_play);
+			}
+		}
+	}
+
+	/**
+	 * リピート再生スイッチの切替時のリスナクラス。
+	 */
+	private class LoopSwitchChangedListener implements CompoundButton.OnCheckedChangeListener {
+
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			//ループするかどうかを設定。
+			_player.setLooping(isChecked);
 		}
 	}
 }
