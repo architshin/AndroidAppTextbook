@@ -23,7 +23,9 @@ public class ListViewSampleActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_view_sample);
 
+		//ListViewオブジェクトを取得。
 		ListView lvMenu = (ListView) findViewById(R.id.lvMenu);
+		//ListViewにリスナを設定。
 		lvMenu.setOnItemClickListener(new ListItemClickListener());
 	}
 
@@ -34,8 +36,11 @@ public class ListViewSampleActivity extends AppCompatActivity {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			//タップされた定食名を取得。
 			String item = (String) parent.getItemAtPosition(position);
+			//トーストで表示する文字列を生成。
 			String show = "あなたが選んだ定食: " + item;
+			//トーストの表示。
 			Toast.makeText(ListViewSampleActivity.this, show, Toast.LENGTH_LONG).show();
 		}
 	}
