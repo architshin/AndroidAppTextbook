@@ -2,12 +2,23 @@ package com.websarva.wings.android.listviewsample2;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 『Androidアプリ開発の教科書』
+ * 第5章
+ * リスト選択サンプル2
+ *
+ * メインアクティビティクラス。
+ *
+ * @author Shinzo SAITO
+ */
 public class ListViewSample2Activity extends AppCompatActivity {
 
 	@Override
@@ -35,5 +46,21 @@ public class ListViewSample2Activity extends AppCompatActivity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListViewSample2Activity.this, android.R.layout.simple_list_item_1, menuList);
 		//リストビューにアダプタオブジェクトを設定。
 		lvMenu.setAdapter(adapter);
+		//リストビューにリスナを設定。
+		lvMenu.setOnItemClickListener(new ListItemClickListener());
+	}
+
+	/**
+	 * リストがタップされたときの処理が記述されたメンバクラス。
+	 */
+	private class ListItemClickListener implements AdapterView.OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			//注文確認ダイアログフラグメントオブジェクトを生成。
+			OrderConfirmDialogFragment dialogFragment = new OrderConfirmDialogFragment();
+			//ダイアログ表示。
+			dialogFragment.show(getSupportFragmentManager(), "OrderConfirmDialogFragment");
+		}
 	}
 }
