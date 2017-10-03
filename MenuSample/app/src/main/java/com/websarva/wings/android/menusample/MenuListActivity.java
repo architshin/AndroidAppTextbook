@@ -67,6 +67,7 @@ public class MenuListActivity extends AppCompatActivity {
 		//リストタップのリスナクラス登録。
 		_lvMenu.setOnItemClickListener(new ListItemClickListener());
 
+		//コンテキストメニューをリストビューに登録。
 		registerForContextMenu(_lvMenu);
 	}
 
