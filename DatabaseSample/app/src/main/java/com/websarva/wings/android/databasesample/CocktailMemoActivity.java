@@ -74,29 +74,32 @@ public class CocktailMemoActivity extends AppCompatActivity {
 		//データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得。
 		SQLiteDatabase db = helper.getWritableDatabase();
 
-		//まず、リストで選択されたカクテルのメモデータを削除。その後インサートを行う。
-		//削除用SQL文字列を用意。
-		String sqlDelete = "DELETE FROM cocktailmemo WHERE _id = ?";
-		//SQL文字列を元にプリペアドステートメントを取得。
-		SQLiteStatement stmt = db.compileStatement(sqlDelete);
-		//変数のバイド。
-		stmt.bindLong(1, _cocktailId);
-		//削除SQLの実行。
-		stmt.executeUpdateDelete();
+		try {
+			//まず、リストで選択されたカクテルのメモデータを削除。その後インサートを行う。
+			//削除用SQL文字列を用意。
+			String sqlDelete = "DELETE FROM cocktailmemo WHERE _id = ?";
+			//SQL文字列を元にプリペアドステートメントを取得。
+			SQLiteStatement stmt = db.compileStatement(sqlDelete);
+			//変数のバイド。
+			stmt.bindLong(1, _cocktailId);
+			//削除SQLの実行。
+			stmt.executeUpdateDelete();
 
-		//インサート用SQL文字列の用意。
-		String sqlInsert = "INSERT INTO cocktailmemo (_id, name, note) VALUES (?, ?, ?)";
-		//SQL文字列を元にプリペアドステートメントを取得。
-		stmt = db.compileStatement(sqlInsert);
-		//変数のバイド。
-		stmt.bindLong(1, _cocktailId);
-		stmt.bindString(2, _cocktailName);
-		stmt.bindString(3, note);
-		//インサートSQLの実行。
-		stmt.executeInsert();
-
-		//データベース接続オブジェクトの解放。
-		db.close();
+			//インサート用SQL文字列の用意。
+			String sqlInsert = "INSERT INTO cocktailmemo (_id, name, note) VALUES (?, ?, ?)";
+			//SQL文字列を元にプリペアドステートメントを取得。
+			stmt = db.compileStatement(sqlInsert);
+			//変数のバイド。
+			stmt.bindLong(1, _cocktailId);
+			stmt.bindString(2, _cocktailName);
+			stmt.bindString(3, note);
+			//インサートSQLの実行。
+			stmt.executeInsert();
+		}
+		finally {
+			//データベース接続オブジェクトの解放。
+			db.close();
+		}
 
 		//カクテル名を「未選択」に変更。
 		_tvCocktailName.setText(getString(R.string.tv_name));
@@ -126,22 +129,28 @@ public class CocktailMemoActivity extends AppCompatActivity {
 			DatabaseHelper helper = new DatabaseHelper(CocktailMemoActivity.this);
 			//データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得。
 			SQLiteDatabase db = helper.getWritableDatabase();
-			//主キーによる検索SQL文字列の用意。
-			String sql = "SELECT * FROM cocktailmemo WHERE _id = " + _cocktailId;
-			//SQLの実行。
-			Cursor cursor = db.rawQuery(sql, null);
-			//データベースから取得した値を格納する変数の用意。データがなかった時のための初期値も用意。
-			String note = "";
-			//SQL実行の戻り値であるカーソルオブジェクトをループさせてデータベース内のデータを取得。
-			while(cursor.moveToNext()) {
-				//カラムのインデックス値を取得。
-				int idxNote = cursor.getColumnIndex("note");
-				//カラムのインデックス値を元に実際のデータを取得。
-				note = cursor.getString(idxNote);
+			try {
+				//主キーによる検索SQL文字列の用意。
+				String sql = "SELECT * FROM cocktailmemo WHERE _id = " + _cocktailId;
+				//SQLの実行。
+				Cursor cursor = db.rawQuery(sql, null);
+				//データベースから取得した値を格納する変数の用意。データがなかった時のための初期値も用意。
+				String note = "";
+				//SQL実行の戻り値であるカーソルオブジェクトをループさせてデータベース内のデータを取得。
+				while (cursor.moveToNext()) {
+					//カラムのインデックス値を取得。
+					int idxNote = cursor.getColumnIndex("note");
+					//カラムのインデックス値を元に実際のデータを取得。
+					note = cursor.getString(idxNote);
+				}
+				//感想のEditTextの各画面部品を取得しデータベースの値を反映。
+				EditText etNote = (EditText) findViewById(R.id.etNote);
+				etNote.setText(note);
 			}
-			//感想のEditTextの各画面部品を取得しデータベースの値を反映。
-			EditText etNote = (EditText) findViewById(R.id.etNote);
-			etNote.setText(note);
+			finally {
+				//データベース接続オブジェクトの解放。
+				db.close();
+			}
 		}
 	}
 }
