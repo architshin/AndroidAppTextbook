@@ -1,17 +1,15 @@
 package com.websarva.wings.android.databasesample;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RatingBar;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -19,126 +17,131 @@ import android.widget.TextView;
  * 第10章
  * データベースサンプル
  *
- * カクテルメモアクティビティクラス。
+ * アクティビティクラス。
  *
  * @author Shinzo SAITO
  */
 public class CocktailMemoActivity extends AppCompatActivity {
-	/**
-	 * リスト画面でタップされた主キーとなるポジションを保持するフィールド。
-	 */
-	private int _id = 0;
 
 	/**
-	 * リスト画面でタップされたカクテル名を保持するフィールド。
+	 * 選択されたカクテルの主キーIDを表すフィールド。
 	 */
-	private String _cocktailName = "";
+	int _cocktailId = -1;
+
+	/**
+	 * 選択されたカクテル名を表すフィールド。
+	 */
+	String _cocktailName = "";
+
+	/**
+	 * カクテル名を表示するTextViewフィールド。
+	 */
+	TextView _tvCocktailName;
+
+	/**
+	 * 保存ボタンフィールド。
+	 */
+	Button _btnSave;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cocktail_memo);
 
-		//インテントオブジェクトを取得。
-		Intent intent = getIntent();
-		//引き継ぎデータとして主キーとなるポジションとカクテル名を取得し、フィールドに格納。
-		_id = intent.getIntExtra("id", 0);
-		_cocktailName = intent.getStringExtra("cocktailName");
+		//カクテル名を表示するTextViewを取得。
+		_tvCocktailName = (TextView) findViewById(R.id.tvCocktailName);
+		//保存ボタンを取得。
+		_btnSave = (Button) findViewById(R.id.btnSave);
 
-		//カクテル名を表示するTextViewを取得し、カクテル名を設定。
-		TextView tvCocktailName = (TextView) findViewById(R.id.tvCocktailName);
-		tvCocktailName.setText(_cocktailName);
+		//カクテルリスト用ListView(lvCocktail)を取得。
+		ListView lvCocktail = (ListView) findViewById(R.id.lvCocktail);
+		//lvCocktailにリスナを登録。
+		lvCocktail.setOnItemClickListener(new ListItemClickListener());
+	}
+
+	/**
+	 * 保存ボタンがタップされた時の処理メソッド。
+	 * @param view タップされた保存ボタン
+	 */
+	public void onSaveButtonClick(View view) {
+		//入力された感想を取得。
+		EditText etNote = (EditText) findViewById(R.id.etNote);
+		String note = etNote.getText().toString();
 
 		//データベースヘルパーオブジェクトを作成。
 		DatabaseHelper helper = new DatabaseHelper(CocktailMemoActivity.this);
 		//データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得。
 		SQLiteDatabase db = helper.getWritableDatabase();
-		//主キーによる検索SQL文字列の用意。
-		String sql = "SELECT * FROM cocktailmemo WHERE _id = " + _id;
-		//SQLの実行。
-		Cursor cursor = db.rawQuery(sql, null);
-		//データベースから取得した値を格納する変数の用意。データがなかった時のための初期値も用意。
-		int rate = 0;
-		String note = "";
-		//SQL実行の戻り値であるカーソルオブジェクトをループさせてデータベース内のデータを取得。
-		while(cursor.moveToNext()) {
-			//カラムのインデックス値を取得。
-			int idxRate = cursor.getColumnIndex("rate");
-			int idxNote = cursor.getColumnIndex("note");
-			//カラムのインデックス値を元に実際のデータを取得。
-			rate = cursor.getInt(idxRate);
-			note = cursor.getString(idxNote);
-		}
 
-		//評価のRatingBar、および、感想のEditTextの各画面部品を取得。
-		RatingBar rtbRate = (RatingBar) findViewById(R.id.rtbRate);
-		EditText etNote = (EditText) findViewById(R.id.etNote);
-		//各画面部品にデータベースの値を反映。
-		rtbRate.setRating(rate);
-		etNote.setText(note);
+		//まず、リストで選択されたカクテルのメモデータを削除。その後インサートを行う。
+		//削除用SQL文字列を用意。
+		String sqlDelete = "DELETE FROM cocktailmemo WHERE _id = ?";
+		//SQL文字列を元にプリペアドステートメントを取得。
+		SQLiteStatement stmt = db.compileStatement(sqlDelete);
+		//変数のバイド。
+		stmt.bindLong(1, _cocktailId);
+		//削除SQLの実行。
+		stmt.executeUpdateDelete();
 
-		//アクションバーに［戻る］メニューを設定。
-		ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		//インサート用SQL文字列の用意。
+		String sqlInsert = "INSERT INTO cocktailmemo (_id, name, note) VALUES (?, ?, ?)";
+		//SQL文字列を元にプリペアドステートメントを取得。
+		stmt = db.compileStatement(sqlInsert);
+		//変数のバイド。
+		stmt.bindLong(1, _cocktailId);
+		stmt.bindString(2, _cocktailName);
+		stmt.bindString(3, note);
+		//インサートSQLの実行。
+		stmt.executeInsert();
+
+		//データベース接続オブジェクトの解放。
+		db.close();
+
+		//カクテル名を「未選択」に変更。
+		_tvCocktailName.setText(getString(R.string.tv_name));
+		//感想欄の入力値を消去。
+		etNote.setText("");
+		//保存ボタンをタップできないように変更。
+		_btnSave.setEnabled(false);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		//メニューインフレーターの取得。
-		MenuInflater inflater = getMenuInflater();
-		//オプションメニュー用xmlファイルをインフレイト。
-		inflater.inflate(R.menu.menu_options_cocktail_memo, menu);
-		//親クラスの同名メソッドを呼び出し、その戻り値を返却。
-		return super.onCreateOptionsMenu(menu);
-	}
+	/**
+	 * リストがタップされたときの処理が記述されたメンバクラス。
+	 */
+	private class ListItemClickListener implements AdapterView.OnItemClickListener {
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		//タップされたメニューのidを取得。
-		int itemId = item.getItemId();
-		//タップされたメニューが保存ボタンなら…
-		if(itemId == R.id.menuOptionsSave) {
-			//RatingBarを取得。
-			RatingBar rtbRate = (RatingBar) findViewById(R.id.rtbRate);
-			//評価値にあたるRatingBarで選択された★の数を取得。これはgetRating()メソッドを使う。android:stepSizeの設定値では★半分などの選択が可能なので、戻り値はfloat。ここではそれをintにキャストして整数化している。
-			int rate = (int) rtbRate.getRating();
-			//入力された感想を取得。
-			EditText etNote = (EditText) findViewById(R.id.etNote);
-			String note = etNote.getText().toString();
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			//タップされた行番号をフィールドの主キーIDに代入。
+			_cocktailId = position;
+			//タップされた行のデータを取得。これがカクテル名となるので、フィールドに代入。
+			_cocktailName = (String) parent.getItemAtPosition(position);
+			//カクテル名を表示するTextViewに表示カクテル名を設定。
+			_tvCocktailName.setText(_cocktailName);
+			//保存ボタンをタップできるように設定。
+			_btnSave.setEnabled(true);
 
 			//データベースヘルパーオブジェクトを作成。
 			DatabaseHelper helper = new DatabaseHelper(CocktailMemoActivity.this);
 			//データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得。
 			SQLiteDatabase db = helper.getWritableDatabase();
-
-			//まず、リストで選択されたカクテルのメモデータを削除。その後インサートを行う。
-			//削除用SQL文字列を用意。
-			String sqlDelete = "DELETE FROM cocktailmemo WHERE _id = ?";
-			//SQL文字列を元にプリペアドステートメントを取得。
-			SQLiteStatement stmt = db.compileStatement(sqlDelete);
-			//変数のバイド。
-			stmt.bindLong(1, _id);
-			//削除SQLの実行。
-			stmt.executeUpdateDelete();
-
-			//インサート用SQL文字列の用意。
-			String sqlInsert = "INSERT INTO cocktailmemo (_id, name, rate, note) VALUES (?, ?, ?, ?)";
-			//SQL文字列を元にプリペアドステートメントを取得。
-			stmt = db.compileStatement(sqlInsert);
-			//変数のバイド。
-			stmt.bindLong(1, _id);
-			stmt.bindString(2, _cocktailName);
-			stmt.bindLong(3, rate);
-			stmt.bindString(4, note);
-			//インサートSQLの実行。
-			stmt.executeInsert();
-
-			//データベース接続オブジェクトの解放。
-			db.close();
+			//主キーによる検索SQL文字列の用意。
+			String sql = "SELECT * FROM cocktailmemo WHERE _id = " + _cocktailId;
+			//SQLの実行。
+			Cursor cursor = db.rawQuery(sql, null);
+			//データベースから取得した値を格納する変数の用意。データがなかった時のための初期値も用意。
+			String note = "";
+			//SQL実行の戻り値であるカーソルオブジェクトをループさせてデータベース内のデータを取得。
+			while(cursor.moveToNext()) {
+				//カラムのインデックス値を取得。
+				int idxNote = cursor.getColumnIndex("note");
+				//カラムのインデックス値を元に実際のデータを取得。
+				note = cursor.getString(idxNote);
+			}
+			//感想のEditTextの各画面部品を取得しデータベースの値を反映。
+			EditText etNote = (EditText) findViewById(R.id.etNote);
+			etNote.setText(note);
 		}
-		//アクティビティの終了。
-		finish();
-		//親クラスの同名メソッドを呼び出し、その戻り値を返却。
-		return super.onOptionsItemSelected(item);
 	}
 }

@@ -35,11 +35,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		//テーブル作成用SQL文字列の作成。
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("CREATE TABLE cocktailmemo (");
 		sb.append("_id INTEGER PRIMARY KEY,");
 		sb.append("name TEXT,");
-		sb.append("rate INTEGER,");
 		sb.append("note TEXT");
 		sb.append(");");
 		String sql = sb.toString();

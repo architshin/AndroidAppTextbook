@@ -14,52 +14,48 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical">
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="20dp"
-		android:text="@string/tv_navi"
-		android:textSize="20sp"/>
+	<ListView
+		android:id="@+id/lvCocktail"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_marginBottom="10dp"
+		android:layout_weight="0.6"
+		android:entries="@array/lv_cocktaillist"/>
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/tv_name"
+		android:text="@string/tv_lb_name"
 		android:textSize="20sp"/>
 
 	<TextView
 		android:id="@+id/tvCocktailName"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="10dp"
+		android:text="@string/tv_name"
 		android:textSize="20sp"/>
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/tv_rate"
-		android:textSize="20sp"/>
-
-	<RatingBar
-		android:id="@+id/rtbRate"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:stepSize="1"
-		android:numStars="5"/>
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="25dp"
-		android:text="@string/tv_note"
+		android:layout_marginTop="5dp"
+		android:text="@string/tv_lb_note"
 		android:textSize="20sp"/>
 
 	<EditText
 		android:id="@+id/etNote"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_weight="1"
+		android:layout_weight="0.4"
 		android:gravity="top"
 		android:inputType="textMultiLine"/>
+
+	<Button
+		android:id="@+id/btnSave"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:enabled="false"
+		android:onClick="onSaveButtonClick"
+		android:text="@string/btn_save"/>
 
 </LinearLayout>
