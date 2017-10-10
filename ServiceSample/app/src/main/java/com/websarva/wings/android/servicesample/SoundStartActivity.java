@@ -21,19 +21,6 @@ public class SoundStartActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sound_start);
-
-		//Intentオブジェクトを取得。
-		Intent intent = getIntent();
-		//通知のタップからの引き継ぎデータを取得。
-		boolean fromNotification = intent.getBooleanExtra("fromNotification", false);
-		//引き継ぎデータが存在、つまり通知のタップからならば…
-		if(fromNotification) {
-			//再生ボタンをタップ不可に、停止ボタンをタップ可に変更。
-			Button btPlay = (Button) findViewById(R.id.btPlay);
-			Button btStop = (Button) findViewById(R.id.btStop);
-			btPlay.setEnabled(false);
-			btStop.setEnabled(true);
-		}
 	}
 
 	/**
