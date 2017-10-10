@@ -1,8 +1,8 @@
 package com.websarva.wings.android.asyncsample;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * 『Androidアプリ開発の教科書』
  * 第11章
- * クラウド連携サンプル
+ * Web API連携サンプル
  *
  * アクティビティクラス。
  *
