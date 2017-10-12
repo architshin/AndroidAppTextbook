@@ -1,6 +1,7 @@
 package com.websarva.wings.android.servicesample;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -8,8 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 
 import java.io.IOException;
 
@@ -23,7 +25,6 @@ import java.io.IOException;
  * @author Shinzo SAITO
  */
 public class SoundManageService extends Service {
-
 	/**
 	 * メディアプレーヤーフィールド。
 	 */
@@ -33,6 +34,23 @@ public class SoundManageService extends Service {
 	public void onCreate() {
 		//フィールドのメディアプレーヤーオブジェクトを生成。
 		_player = new MediaPlayer();
+		//通知チャネルのID文字列を用意。
+		String id = "soundmanagerservice_nortification_channel";
+		//通知チャネル名をstrings.xmlから取得。
+		String name = getString(R.string.notification_channel_name);
+		//通知チャネルの重要度を標準に設定。
+		int importance = NotificationManager.IMPORTANCE_DEFAULT;
+		//通知チャネルを生成。
+		NotificationChannel channel = new NotificationChannel(id, name, importance);
+		//NotificationManagerオブジェクトを取得。
+		NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		//通知チャネルを設定。
+		manager.createNotificationChannel(channel);
+	}
+
+	@Override
+	public IBinder onBind(Intent intent) {
+		throw new UnsupportedOperationException("Not yet implemented");
 	}
 
 	@Override
@@ -59,11 +77,6 @@ public class SoundManageService extends Service {
 	}
 
 	@Override
-	public IBinder onBind(Intent intent) {
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
-
-	@Override
 	public void onDestroy() {
 		//プレーヤーが再生中なら…
 		if(_player.isPlaying()) {
@@ -87,7 +100,7 @@ public class SoundManageService extends Service {
 			mp.start();
 
 			//Notificationを作成するBuilderクラス生成。
-			NotificationCompat.Builder builder = new NotificationCompat.Builder(SoundManageService.this);
+			NotificationCompat.Builder builder = new NotificationCompat.Builder(SoundManageService.this, "soundmanagerservice_nortification_channel");
 			//通知エリアに表示されるアイコンを設定。
 			builder.setSmallIcon(android.R.drawable.ic_dialog_info);
 			//通知ドロワーでの表示タイトルを設定。
@@ -123,7 +136,7 @@ public class SoundManageService extends Service {
 		@Override
 		public void onCompletion(MediaPlayer mp) {
 			//Notificationを作成するBuilderクラス生成。
-			NotificationCompat.Builder builder = new NotificationCompat.Builder(SoundManageService.this);
+			NotificationCompat.Builder builder = new NotificationCompat.Builder(SoundManageService.this, "soundmanagerservice_nortification_channel");
 			//通知エリアに表示されるアイコンを設定。
 			builder.setSmallIcon(android.R.drawable.ic_dialog_info);
 			//通知ドロワーでの表示タイトルを設定。
