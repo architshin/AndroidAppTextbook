@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +55,7 @@ public class ScrollListActivity extends AppCompatActivity {
 		toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY);
 
 		//RecyclerViewを取得。
-		RecyclerView lvMenu = (RecyclerView) findViewById(R.id.lvMenu);
+		RecyclerView lvMenu = findViewById(R.id.lvMenu);
 		//LinearLayoutManagerオブジェクトを生成。
 		LinearLayoutManager layout = new LinearLayoutManager(ScrollListActivity.this);
 		//以下は他の2種のレイアウトマネージャー。
@@ -67,6 +69,11 @@ public class ScrollListActivity extends AppCompatActivity {
 		RecyclerListAdapter adapter = new RecyclerListAdapter(menuList);
 		//RecyclerViewにアダプタオブジェクトを設定。
 		lvMenu.setAdapter(adapter);
+
+		//区切り専用のオブジェクトを生成。
+		DividerItemDecoration decorator = new DividerItemDecoration(ScrollListActivity.this, layout.getOrientation());
+		//RecyclerViewに区切り線オブジェクトを設定。
+		lvMenu.addItemDecoration(decorator);
 	}
 
 	/**
@@ -203,6 +210,8 @@ public class ScrollListActivity extends AppCompatActivity {
 			LayoutInflater inflater = LayoutInflater.from(ScrollListActivity.this);
 			//row.xmlをインフレートし、1行分の画面部品とする。
 			View view = inflater.inflate(R.layout.row, parent, false);
+			//インフレートされた1行分の画面部品にリスナを設定。
+			view.setOnClickListener(new ItemClickListener());
 			//ビューホルダオブジェクトを生成。
 			RecyclerListViewHolder holder = new RecyclerListViewHolder(view);
 			//生成したビューホルダをリターン。
@@ -228,6 +237,24 @@ public class ScrollListActivity extends AppCompatActivity {
 		public int getItemCount() {
 			//リストデータ中の件数をリターン。
 			return _listData.size();
+		}
+	}
+
+	/**
+	 * リストをタップした時のリスナクラス。
+	 */
+	private class ItemClickListener implements View.OnClickListener {
+
+		@Override
+		public void onClick(View view) {
+			//タップされたLinearLayout内にあるメニュー名表示TextViewを取得。
+			TextView tvMenuName =  view.findViewById(R.id.tvMenuName);
+			//メニュー名表示TextViewから表示されているメニュー名文字列を取得。
+			String menuName = tvMenuName.getText().toString();
+			//トーストに表示する文字列を生成。
+			String msg = getString(R.string.msg_header) + menuName;
+			//トースト表示。
+			Toast.makeText(ScrollListActivity.this, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
 }
