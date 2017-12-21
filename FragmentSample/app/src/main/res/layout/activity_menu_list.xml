@@ -10,14 +10,15 @@
 
 ファイル名=layout/activity_menu_list.xml
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			 android:layout_width="match_parent"
-			 android:layout_height="match_parent" >
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
 	<fragment
 		android:id="@+id/fragmentMenuList"
 		android:name="com.websarva.wings.android.fragmentsample.MenuListFragment"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+		android:layout_height="match_parent"/>
 
 </FrameLayout>

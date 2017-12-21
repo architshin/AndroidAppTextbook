@@ -83,14 +83,14 @@ public class MenuThanksFragment extends Fragment {
 			menuPrice = extras.getString("menuPrice");
 		}
 		//定食名と金額を表示させるTextViewを取得。
-		TextView tvMenuName = (TextView) view.findViewById(R.id.tvMenuName);
-		TextView tvMenuPrice = (TextView) view.findViewById(R.id.tvMenuPrice);
+		TextView tvMenuName = view.findViewById(R.id.tvMenuName);
+		TextView tvMenuPrice = view.findViewById(R.id.tvMenuPrice);
 		//TextViewに定食名と金額を表示。
 		tvMenuName.setText(menuName);
 		tvMenuPrice.setText(menuPrice);
 
 		//戻るボタンを取得。
-		Button btBackButton = (Button) view.findViewById(R.id.btBackButton);
+		Button btBackButton = view.findViewById(R.id.btBackButton);
 		//戻るボタンにリスナを登録。
 		btBackButton.setOnClickListener(new ButtonClickListener());
 
