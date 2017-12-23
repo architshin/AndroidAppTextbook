@@ -29,8 +29,8 @@ public class SoundStartActivity extends AppCompatActivity {
 		//引き継ぎデータが存在、つまり通知のタップからならば…
 		if(fromNotification) {
 			//再生ボタンをタップ不可に、停止ボタンをタップ可に変更。
-			Button btPlay = (Button) findViewById(R.id.btPlay);
-			Button btStop = (Button) findViewById(R.id.btStop);
+			Button btPlay = findViewById(R.id.btPlay);
+			Button btStop = findViewById(R.id.btStop);
 			btPlay.setEnabled(false);
 			btStop.setEnabled(true);
 		}
@@ -47,8 +47,8 @@ public class SoundStartActivity extends AppCompatActivity {
 		//サービスを起動。
 		startService(intent);
 		//再生ボタンをタップ不可に、停止ボタンをタップ可に変更。
-		Button btPlay = (Button) findViewById(R.id.btPlay);
-		Button btStop = (Button) findViewById(R.id.btStop);
+		Button btPlay = findViewById(R.id.btPlay);
+		Button btStop = findViewById(R.id.btStop);
 		btPlay.setEnabled(false);
 		btStop.setEnabled(true);
 	}
@@ -64,8 +64,8 @@ public class SoundStartActivity extends AppCompatActivity {
 		//サービスを停止。
 		stopService(intent);
 		//再生ボタンをタップ可に、停止ボタンをタップ不可に変更。
-		Button btPlay = (Button) findViewById(R.id.btPlay);
-		Button btStop = (Button) findViewById(R.id.btStop);
+		Button btPlay = findViewById(R.id.btPlay);
+		Button btStop = findViewById(R.id.btStop);
 		btPlay.setEnabled(true);
 		btStop.setEnabled(false);
 	}
