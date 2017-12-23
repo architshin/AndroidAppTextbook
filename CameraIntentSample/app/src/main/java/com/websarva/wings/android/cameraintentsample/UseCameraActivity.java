@@ -42,7 +42,7 @@ public class UseCameraActivity extends AppCompatActivity {
 		//カメラアプリからの戻りでかつ撮影成功の場合
 		if(requestCode == 200 && resultCode == RESULT_OK) {
 			//画像を表示するImageViewを取得。
-			ImageView ivCamera = (ImageView) findViewById(R.id.ivCamera);
+			ImageView ivCamera = findViewById(R.id.ivCamera);
 			//フィールドの画像URIをImageViewに設定。
 			ivCamera.setImageURI(_imageUri);
 		}
@@ -53,7 +53,7 @@ public class UseCameraActivity extends AppCompatActivity {
 		//WRITE_EXTERNAL_STORAGEに対するパーミションダイアログでかつ許可を選択したなら…
 		if(requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 			//もう一度カメラアプリを起動。
-			ImageView ivCamera = (ImageView) findViewById(R.id.ivCamera);
+			ImageView ivCamera = findViewById(R.id.ivCamera);
 			onCameraImageClick(ivCamera);
 		}
 	}
