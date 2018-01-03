@@ -26,11 +26,11 @@ public class OrderConfirmDialogFragment extends DialogFragment {
 		builder.setTitle(R.string.dialog_title);
 		//ダイアログのメッセージを設定。
 		builder.setMessage(R.string.dialog_msg);
-		//OKボタンを設定。
+		//Positive Buttonを設定。
 		builder.setPositiveButton(R.string.dialog_btn_ok, new DialogButtonClickListener());
-		//NGボタンを設定。
+		//Negative Buttonを設定。
 		builder.setNegativeButton(R.string.dialog_btn_ng, new DialogButtonClickListener());
-		//ニュートラルボタンを設定。
+		//Neutral Buttonを設定。
 		builder.setNeutralButton(R.string.dialog_btn_nu, new DialogButtonClickListener());
 		//ダイアログオブジェクトを生成し、リターン。
 		AlertDialog dialog = builder.create();
@@ -48,17 +48,17 @@ public class OrderConfirmDialogFragment extends DialogFragment {
 			String msg = "";
 			//タップされたアクションボタンで分岐。
 			switch(which) {
-				//OKボタンならば…
+				//Positive Buttonならば…
 				case DialogInterface.BUTTON_POSITIVE:
 					//注文用のメッセージを格納。
 					msg = getString(R.string.dialog_ok_toast);
 					break;
-				//NGボタンならば…
+				//Negative Buttonならば…
 				case DialogInterface.BUTTON_NEGATIVE:
 					//キャンセル用のメッセージを格納。
 					msg = getString(R.string.dialog_ng_toast);
 					break;
-				//ニュートラルボタンならば…
+				//Neutral Buttonならば…
 				case DialogInterface.BUTTON_NEUTRAL:
 					//問合せ用のメッセージを格納。
 					msg = getString(R.string.dialog_nu_toast);
