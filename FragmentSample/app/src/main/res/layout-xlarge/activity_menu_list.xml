@@ -10,18 +10,19 @@
 
 ファイル名=layout-xlarge/activity_menu_list.xml
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  android:layout_width="match_parent"
-			  android:layout_height="match_parent"
-			  android:baselineAligned="false"
-			  android:orientation="horizontal" >
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:baselineAligned="false"
+	android:orientation="horizontal">
 
 	<fragment
 		android:id="@+id/fragmentMenuList"
 		android:name="com.websarva.wings.android.fragmentsample.MenuListFragment"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
-		android:layout_weight="0.4" />
+		android:layout_weight="0.4"/>
 
 	<FrameLayout
 		android:id="@+id/menuThanksFrame"
@@ -29,6 +30,6 @@
 		android:layout_height="match_parent"
 		android:layout_marginLeft="50dp"
 		android:layout_weight="0.6"
-		android:background="?android:attr/detailsElementBackground" />
+		android:background="?android:attr/detailsElementBackground"/>
 
 </LinearLayout>

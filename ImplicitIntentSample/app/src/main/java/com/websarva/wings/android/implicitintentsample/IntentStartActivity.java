@@ -54,8 +54,8 @@ public class IntentStartActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_intent_start);
 
 		//緯度と経度を表示するTextViewフィールドの中身を取得。
-		_tvLatitude = (TextView) findViewById(R.id.tvLatitude);
-		_tvLongitude = (TextView) findViewById(R.id.tvLongitude);
+		_tvLatitude = findViewById(R.id.tvLatitude);
+		_tvLongitude = findViewById(R.id.tvLongitude);
 
 		//LocationManagerオブジェクトを取得。
 		LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -97,7 +97,7 @@ public class IntentStartActivity extends AppCompatActivity {
 	 */
 	public void onMapSearchButtonClick(View view) {
 		//入力欄に入力されたキーワード文字列を取得。
-		EditText etSearchWord = (EditText) findViewById(R.id.etSearchWord);
+		EditText etSearchWord = findViewById(R.id.etSearchWord);
 		String searchWord = etSearchWord.getText().toString();
 
 		try {

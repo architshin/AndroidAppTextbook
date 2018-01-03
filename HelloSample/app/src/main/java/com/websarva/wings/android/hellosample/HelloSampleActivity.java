@@ -24,14 +24,14 @@ public class HelloSampleActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_hello_sample);
 
 		//表示ボタンであるButtonオブジェクトを取得。
-		Button btClick = (Button) findViewById(R.id.btClick);
+		Button btClick = findViewById(R.id.btClick);
 		//リスナクラスのインスタンスを生成。
 		HelloListener listener = new HelloListener();
 		//表示ボタンにリスナを設定。
 		btClick.setOnClickListener(listener);
 
 		//クリアボタンであるButtonオブジェクトを取得。
-		Button btClear = (Button) findViewById(R.id.btClear);
+		Button btClear = findViewById(R.id.btClear);
 		//クリアボタンにリスナを設定。
 		btClear.setOnClickListener(listener);
 	}
@@ -44,9 +44,9 @@ public class HelloSampleActivity extends AppCompatActivity {
 		@Override
 		public void onClick(View view) {
 			//名前入力欄であるEditTextオブジェクトを取得。
-			EditText input = (EditText) findViewById(R.id.etName);
+			EditText input = findViewById(R.id.etName);
 			//メッセージを表示するTextViewオブジェクトを取得。
-			TextView output = (TextView) findViewById(R.id.tvOutput);
+			TextView output = findViewById(R.id.tvOutput);
 
 			//タップされた画面部品のidのR値を取得。
 			int id = view.getId();

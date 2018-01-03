@@ -60,8 +60,14 @@ public class LifeCycleMainActivity extends AppCompatActivity {
 		super.onDestroy();
 	}
 
+	/**
+	 * 「次の画面を表示」ボタンがタップされた時の処理。
+	 * @param view タップされた画面部品。
+	 */
 	public void onButtonClick(View view) {
+		//インテントオブジェクトを用意。
 		Intent intent = new Intent(LifeCycleMainActivity.this, LifeCycleSubActivity.class);
+		//アクティビティを起動。
 		startActivity(intent);
 	}
 }

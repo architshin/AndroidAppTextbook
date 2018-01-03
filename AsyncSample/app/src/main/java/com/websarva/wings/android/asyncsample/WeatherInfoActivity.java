@@ -42,43 +42,43 @@ public class WeatherInfoActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_weather_info);
 
 		//画面部品ListViewを取得
-		ListView lvCityList = (ListView) findViewById(R.id.lvCityList);
+		ListView lvCityList = findViewById(R.id.lvCityList);
 		//SimpleAdapterで使用するListオブジェクトを用意。
-		List<Map<String, String>> cityList = new ArrayList<Map<String,String>>();
+		List<Map<String, String>> cityList = new ArrayList<>();
 		//都市データを格納するMapオブジェクトの用意とcityListへのデータ登録。
-		Map<String, String> city = new HashMap<String, String>();
+		Map<String, String> city = new HashMap<>();
 		city.put("name", "大阪");
 		city.put("id", "270000");
 		cityList.add(city);
-		city = new HashMap<String, String>();
+		city = new HashMap<>();
 		city.put("name", "神戸");
 		city.put("id", "280010");
 		cityList.add(city);
-		city = new HashMap<String, String>();
+		city = new HashMap<>();
 		city.put("name", "豊岡");
 		city.put("id", "280020");
 		cityList.add(city);
-		city = new HashMap<String, String>();
+		city = new HashMap<>();
 		city.put("name", "京都");
 		city.put("id", "260010");
 		cityList.add(city);
-		city = new HashMap<String, String>();
+		city = new HashMap<>();
 		city.put("name", "舞鶴");
 		city.put("id", "260020");
 		cityList.add(city);
-		city = new HashMap<String, String>();
+		city = new HashMap<>();
 		city.put("name", "奈良");
 		city.put("id", "290010");
 		cityList.add(city);
-		city = new HashMap<String, String>();
+		city = new HashMap<>();
 		city.put("name", "風屋");
 		city.put("id", "290020");
 		cityList.add(city);
-		city = new HashMap<String, String>();
+		city = new HashMap<>();
 		city.put("name", "和歌山");
 		city.put("id", "300010");
 		cityList.add(city);
-		city = new HashMap<String, String>();
+		city = new HashMap<>();
 		city.put("name", "潮岬");
 		city.put("id", "300020");
 		cityList.add(city);
@@ -105,12 +105,12 @@ public class WeatherInfoActivity extends AppCompatActivity {
 			String cityName = item.get("name");
 			String cityId = item.get("id");
 			//取得した都市名をtvCityNameに設定。
-			TextView tvCityName = (TextView) findViewById(R.id.tvCityName);
+			TextView tvCityName = findViewById(R.id.tvCityName);
 			tvCityName.setText(cityName + "の天気: ");
 			//天気情報を表示するTextViewを取得。
-			TextView tvWeatherTelop = (TextView) findViewById(R.id.tvWeatherTelop);
+			TextView tvWeatherTelop = findViewById(R.id.tvWeatherTelop);
 			//天気詳細情報を表示するTextViewを取得。
-			TextView tvWeatherDesc = (TextView) findViewById(R.id.tvWeatherDesc);
+			TextView tvWeatherDesc = findViewById(R.id.tvWeatherDesc);
 			//WeatherInfoReceiverをnew。引数として上で取得したTextViewを渡す。
 			WeatherInfoReceiver receiver = new WeatherInfoReceiver(tvWeatherTelop, tvWeatherDesc);
 			//WeatherInfoReceiverを実行。

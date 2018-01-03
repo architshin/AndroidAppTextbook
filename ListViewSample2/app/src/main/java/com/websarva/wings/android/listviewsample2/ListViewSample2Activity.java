@@ -27,9 +27,9 @@ public class ListViewSample2Activity extends AppCompatActivity {
 		setContentView(R.layout.activity_list_view_sample2);
 
 		//ListViewオブジェクトを取得。
-		ListView lvMenu = (ListView) findViewById(R.id.lvMenu);
+		ListView lvMenu = findViewById(R.id.lvMenu);
 		//リストビューに表示するリストデータ用Listオブジェクトを作成。
-		List<String> menuList = new ArrayList<String>();
+		List<String> menuList = new ArrayList<>();
 		//リストデータの登録。
 		menuList.add("から揚げ定食");
 		menuList.add("ハンバーグ定食");
@@ -43,7 +43,7 @@ public class ListViewSample2Activity extends AppCompatActivity {
 		menuList.add("焼き魚定食");
 		menuList.add("焼肉定食");
 		//アダプタオブジェクトを生成。
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListViewSample2Activity.this, android.R.layout.simple_list_item_1, menuList);
+		ArrayAdapter<String> adapter = new ArrayAdapter<>(ListViewSample2Activity.this, android.R.layout.simple_list_item_1, menuList);
 		//リストビューにアダプタオブジェクトを設定。
 		lvMenu.setAdapter(adapter);
 		//リストビューにリスナを設定。

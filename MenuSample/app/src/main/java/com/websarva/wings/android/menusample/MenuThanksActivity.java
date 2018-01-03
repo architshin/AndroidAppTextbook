@@ -31,8 +31,8 @@ public class MenuThanksActivity extends AppCompatActivity {
 		String menuPrice = intent.getStringExtra("menuPrice");
 
 		//定食名と金額を表示させるTextViewを取得。
-		TextView tvMenuName = (TextView) findViewById(R.id.tvMenuName);
-		TextView tvMenuPrice = (TextView) findViewById(R.id.tvMenuPrice);
+		TextView tvMenuName = findViewById(R.id.tvMenuName);
+		TextView tvMenuPrice = findViewById(R.id.tvMenuPrice);
 
 		//TextViewに定食名と金額を表示。
 		tvMenuName.setText(menuName);

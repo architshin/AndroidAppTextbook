@@ -47,9 +47,9 @@ public class MediaControlActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_media_control);
 
 		//フィールドの各ボタンを取得。
-		_btPlay = (Button) findViewById(R.id.btPlay);
-		_btBack = (Button) findViewById(R.id.btBack);
-		_btForward = (Button) findViewById(R.id.btForward);
+		_btPlay = findViewById(R.id.btPlay);
+		_btBack = findViewById(R.id.btBack);
+		_btForward = findViewById(R.id.btForward);
 
 		//フィールドのメディアプレーヤーオブジェクトを生成。
 		_player = new MediaPlayer();
@@ -72,7 +72,7 @@ public class MediaControlActivity extends AppCompatActivity {
 		}
 
 		//スイッチを取得。
-		Switch loopSwitch = (Switch) findViewById(R.id.swLoop);
+		Switch loopSwitch = findViewById(R.id.swLoop);
 		//スイッチにリスナを設定。
 		loopSwitch.setOnCheckedChangeListener(new LoopSwitchChangedListener());
 	}
@@ -98,7 +98,7 @@ public class MediaControlActivity extends AppCompatActivity {
 	 * @param view 画面部品
 	 */
 	public void onPlayButtonClick(View view) {
-		//プレーヤーが再生だったら…
+		//プレーヤーが再生中だったら…
 		if(_player.isPlaying()) {
 			//プレーヤーを一時停止。
 			_player.pause();

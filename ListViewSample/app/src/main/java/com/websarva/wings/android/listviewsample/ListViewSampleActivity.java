@@ -24,7 +24,7 @@ public class ListViewSampleActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_list_view_sample);
 
 		//ListViewオブジェクトを取得。
-		ListView lvMenu = (ListView) findViewById(R.id.lvMenu);
+		ListView lvMenu = findViewById(R.id.lvMenu);
 		//ListViewにリスナを設定。
 		lvMenu.setOnItemClickListener(new ListItemClickListener());
 	}

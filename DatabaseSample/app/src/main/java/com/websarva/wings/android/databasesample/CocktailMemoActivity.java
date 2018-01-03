@@ -50,12 +50,12 @@ public class CocktailMemoActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_cocktail_memo);
 
 		//カクテル名を表示するTextViewを取得。
-		_tvCocktailName = (TextView) findViewById(R.id.tvCocktailName);
+		_tvCocktailName = findViewById(R.id.tvCocktailName);
 		//保存ボタンを取得。
-		_btnSave = (Button) findViewById(R.id.btnSave);
+		_btnSave = findViewById(R.id.btnSave);
 
 		//カクテルリスト用ListView(lvCocktail)を取得。
-		ListView lvCocktail = (ListView) findViewById(R.id.lvCocktail);
+		ListView lvCocktail = findViewById(R.id.lvCocktail);
 		//lvCocktailにリスナを登録。
 		lvCocktail.setOnItemClickListener(new ListItemClickListener());
 	}
@@ -66,7 +66,7 @@ public class CocktailMemoActivity extends AppCompatActivity {
 	 */
 	public void onSaveButtonClick(View view) {
 		//入力された感想を取得。
-		EditText etNote = (EditText) findViewById(R.id.etNote);
+		EditText etNote = findViewById(R.id.etNote);
 		String note = etNote.getText().toString();
 
 		//データベースヘルパーオブジェクトを作成。
@@ -144,7 +144,7 @@ public class CocktailMemoActivity extends AppCompatActivity {
 					note = cursor.getString(idxNote);
 				}
 				//感想のEditTextの各画面部品を取得しデータベースの値を反映。
-				EditText etNote = (EditText) findViewById(R.id.etNote);
+				EditText etNote = findViewById(R.id.etNote);
 				etNote.setText(note);
 			}
 			finally {
