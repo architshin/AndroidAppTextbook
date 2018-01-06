@@ -61,7 +61,6 @@ public class LifeCycleSubActivity extends AppCompatActivity {
 
 	/**
 	 * 「前の画面を表示」ボタンがタップされた時の処理。
-	 * @param view タップされた画面部品。
 	 */
 	public void onButtonClick(View view) {
 		// このアクティビティの終了。
