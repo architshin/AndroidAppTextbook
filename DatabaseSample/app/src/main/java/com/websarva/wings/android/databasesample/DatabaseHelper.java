@@ -25,7 +25,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	/**
 	 * コンストラクタ。
-	 * @param context コンテキスト。
 	 */
 	public DatabaseHelper(Context context) {
 		//親クラスのコンストラクタの呼び出し。

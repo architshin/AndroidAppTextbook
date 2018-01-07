@@ -62,7 +62,6 @@ public class CocktailMemoActivity extends AppCompatActivity {
 
 	/**
 	 * 保存ボタンがタップされた時の処理メソッド。
-	 * @param view タップされた保存ボタン
 	 */
 	public void onSaveButtonClick(View view) {
 		//入力された感想を取得。
