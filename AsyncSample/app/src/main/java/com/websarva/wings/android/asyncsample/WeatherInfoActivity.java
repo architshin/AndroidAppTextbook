@@ -134,9 +134,6 @@ public class WeatherInfoActivity extends AppCompatActivity {
 		/**
 		 * コンストラクタ。
 		 * お天気情報を表示する画面部品をあらかじめ取得してフィールドに格納している。
-		 *
-		 * @param tvWeatherTelop 現在の天気を表示する画面部品。
-		 * @param tvWeatherDesc 天気の詳細を表示する画面部品。
 		 */
 		public WeatherInfoReceiver(TextView tvWeatherTelop, TextView tvWeatherDesc) {
 			//引数をそれぞれのフィールドに格納。
@@ -155,7 +152,7 @@ public class WeatherInfoActivity extends AppCompatActivity {
 
 			//http接続を行うHttpURLConnectionオブジェクトを宣言。finallyで確実に解放するためにtry外で宣言。
 			HttpURLConnection con = null;
-			//http接続のレスポンスデータとして取得するInputStreamオブジェクトを宣言。finallyで確実に解放するためにtry外で宣言。
+			//http接続のレスポンスデータとして取得するInputStreamオブジェクトを宣言。同じくtry外で宣言。
 			InputStream is = null;
 			try {
 				//URLオブジェクトを生成。
@@ -203,15 +200,15 @@ public class WeatherInfoActivity extends AppCompatActivity {
 			try {
 				//JSON文字列からJSONObjectオブジェクトを生成。これをルートJSONオブジェクトとする。
 				JSONObject rootJSON = new JSONObject(result);
-				//ルートJSONオブジェクト直下の「description」プロパティで指定できるJSONオブジェクトをJSONObjectオブジェクトとして取得。
+				//ルートJSON直下の「description」JSONオブジェクトを取得。
 				JSONObject descriptionJSON = rootJSON.getJSONObject("description");
-				//「description」プロパティ直下の「text」プロパティで指定できる文字列(天気概況文)を取得。
+				//「description」プロパティ直下の「text」文字列(天気概況文)を取得。
 				desc = descriptionJSON.getString("text");
-				//ルートJSONオブジェクト直下の「forecasts」プロパティで指定できるJSON配列オブジェクトをJSONArrayオブジェクトとして取得。
+				//ルートJSON直下の「forecasts」JSON配列を取得。
 				JSONArray forecasts = rootJSON.getJSONArray("forecasts");
-				//「forecasts」プロパティのJSON配列オブジェクトのひとつ目(インデックス0)のJSONオブジェクトをJSONObjectオブジェクトとして取得。
+				//「forecasts」JSON配列のひとつ目(インデックス0)のJSONオブジェクトを取得。
 				JSONObject forecastNow = forecasts.getJSONObject(0);
-				//「forecasts」ひとつ目のJSONオブジェクトから「telop」プロパティで指定できる文字列(天気)を取得。
+				//「forecasts」ひとつ目のJSONオブジェクトから「telop」文字列(天気)を取得。
 				telop = forecastNow.getString("telop");
 			}
 			catch(JSONException ex) {
