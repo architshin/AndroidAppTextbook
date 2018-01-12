@@ -92,8 +92,6 @@ public class IntentStartActivity extends AppCompatActivity {
 
 	/**
 	 * 地図検索ボタンがタップされたときの処理メソッド。
-	 *
-	 * @param view 画面部品
 	 */
 	public void onMapSearchButtonClick(View view) {
 		//入力欄に入力されたキーワード文字列を取得。
@@ -118,8 +116,6 @@ public class IntentStartActivity extends AppCompatActivity {
 
 	/**
 	 * 現在地の地図表示ボタンがタップされたときの処理メソッド。
-	 *
-	 * @param view 画面部品
 	 */
 	public void onMapShowCurrentButtonClick(View view) {
 		//フィールドの緯度と経度の値をもとにマップアプリと連携するURI文字列を生成。
