@@ -60,8 +60,6 @@ public class UseCameraActivity extends AppCompatActivity {
 
 	/**
 	 * 画像部分がタップされたときの処理メソッド。
-	 *
-	 * @param view 画面部品
 	 */
 	public void onCameraImageClick(View view) {
 		//WRITE_EXTERNAL_STORAGEの許可が下りていないなら…
