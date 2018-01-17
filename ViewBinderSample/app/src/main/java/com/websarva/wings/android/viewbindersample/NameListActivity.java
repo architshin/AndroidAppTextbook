@@ -93,23 +93,33 @@ public class NameListActivity extends AppCompatActivity {
 		nameList.add(person);
 
 		person = new HashMap<>();
-		person.put("name", "田中一郎");
+		person.put("name", "杉本孝典");
 		person.put("sex", 1);
 		nameList.add(person);
 
 		person = new HashMap<>();
-		person.put("name", "田中一郎");
+		person.put("name", "牧野知子");
+		person.put("sex", 0);
+		nameList.add(person);
+
+		person = new HashMap<>();
+		person.put("name", "三上春香");
+		person.put("sex", 0);
+		nameList.add(person);
+
+		person = new HashMap<>();
+		person.put("name", "大野弘明");
 		person.put("sex", 1);
 		nameList.add(person);
 
 		person = new HashMap<>();
-		person.put("name", "田中一郎");
+		person.put("name", "西口健太");
 		person.put("sex", 1);
 		nameList.add(person);
 
 		person = new HashMap<>();
-		person.put("name", "田中一郎");
-		person.put("sex", 1);
+		person.put("name", "西野明美");
+		person.put("sex", 0);
 		nameList.add(person);
 
 		return nameList;
@@ -126,6 +136,8 @@ public class NameListActivity extends AppCompatActivity {
 			 * 引数のviewはリスト1行内でデータを割り当てる画面部品。
 			 * dataはそれに割り当てるデータ。
 			 * textRepresentationはdataを文字列に変換したデータ。
+			 *
+			 * viewとdataの組合わせはfromとtoの組合せそのもの。
 			 */
 
 			//リスト1行内でデータを割り当てる画面部品のidのR値を取得。
