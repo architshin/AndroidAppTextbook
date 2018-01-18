@@ -62,7 +62,6 @@ public class LifeCycleMainActivity extends AppCompatActivity {
 
 	/**
 	 * 「次の画面を表示」ボタンがタップされた時の処理。
-	 * @param view タップされた画面部品。
 	 */
 	public void onButtonClick(View view) {
 		//インテントオブジェクトを用意。

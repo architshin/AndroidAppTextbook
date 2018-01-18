@@ -11,7 +11,7 @@
 ファイル名=activity_menu_list.xml
 -->
 <ListView
-	android:id="@+id/lvMenu"
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/lvMenu"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"/>
