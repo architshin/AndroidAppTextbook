@@ -109,7 +109,8 @@ public class IntentStartActivity extends AppCompatActivity {
 			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 			//アクティビティを起動。
 			startActivity(intent);
-		} catch(UnsupportedEncodingException ex) {
+		}
+		catch(UnsupportedEncodingException ex) {
 			Log.e("IntentStartActivity", "検索キーワード変換失敗", ex);
 		}
 	}
