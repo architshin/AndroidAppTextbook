@@ -35,7 +35,7 @@ public class SoundManageService extends Service {
 		//フィールドのメディアプレーヤーオブジェクトを生成。
 		_player = new MediaPlayer();
 		//通知チャネルのID文字列を用意。
-		String id = "soundmanagerservice_nortification_channel";
+		String id = "soundmanagerservice_notification_channel";
 		//通知チャネル名をstrings.xmlから取得。
 		String name = getString(R.string.notification_channel_name);
 		//通知チャネルの重要度を標準に設定。
@@ -68,7 +68,8 @@ public class SoundManageService extends Service {
 			_player.setOnCompletionListener(new PlayerCompletionListener());
 			//非同期でメディア再生を準備。
 			_player.prepareAsync();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -100,7 +101,7 @@ public class SoundManageService extends Service {
 			mp.start();
 
 			//Notificationを作成するBuilderクラス生成。
-			NotificationCompat.Builder builder = new NotificationCompat.Builder(SoundManageService.this, "soundmanagerservice_nortification_channel");
+			NotificationCompat.Builder builder = new NotificationCompat.Builder(SoundManageService.this, "soundmanagerservice_notification_channel");
 			//通知エリアに表示されるアイコンを設定。
 			builder.setSmallIcon(android.R.drawable.ic_dialog_info);
 			//通知ドロワーでの表示タイトルを設定。
@@ -136,7 +137,7 @@ public class SoundManageService extends Service {
 		@Override
 		public void onCompletion(MediaPlayer mp) {
 			//Notificationを作成するBuilderクラス生成。
-			NotificationCompat.Builder builder = new NotificationCompat.Builder(SoundManageService.this, "soundmanagerservice_nortification_channel");
+			NotificationCompat.Builder builder = new NotificationCompat.Builder(SoundManageService.this, "soundmanagerservice_notification_channel");
 			//通知エリアに表示されるアイコンを設定。
 			builder.setSmallIcon(android.R.drawable.ic_dialog_info);
 			//通知ドロワーでの表示タイトルを設定。
