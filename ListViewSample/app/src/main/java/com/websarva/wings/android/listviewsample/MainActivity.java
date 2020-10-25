@@ -1,6 +1,7 @@
 package com.websarva.wings.android.listviewsample;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,12 +17,11 @@ import android.widget.Toast;
  *
  * @author Shinzo SAITO
  */
-public class ListViewSampleActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_list_view_sample);
+		setContentView(R.layout.activity_main);
 
 		//ListViewオブジェクトを取得。
 		ListView lvMenu = findViewById(R.id.lvMenu);
@@ -33,7 +33,6 @@ public class ListViewSampleActivity extends AppCompatActivity {
 	 * リストがタップされたときの処理が記述されたメンバクラス。
 	 */
 	private class ListItemClickListener implements AdapterView.OnItemClickListener {
-
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			//タップされた定食名を取得。
@@ -41,7 +40,7 @@ public class ListViewSampleActivity extends AppCompatActivity {
 			//トーストで表示する文字列を生成。
 			String show = "あなたが選んだ定食: " + item;
 			//トーストの表示。
-			Toast.makeText(ListViewSampleActivity.this, show, Toast.LENGTH_LONG).show();
+			Toast.makeText(MainActivity.this, show, Toast.LENGTH_LONG).show();
 		}
 	}
 }
