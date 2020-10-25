@@ -3,9 +3,11 @@ package com.websarva.wings.android.listviewsample2;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
 
 /**
  * 『Androidアプリ開発の教科書』
@@ -17,7 +19,6 @@ import android.widget.Toast;
  * @author Shinzo SAITO
  */
 public class OrderConfirmDialogFragment extends DialogFragment {
-
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		//ダイアログビルダを生成。
@@ -41,7 +42,6 @@ public class OrderConfirmDialogFragment extends DialogFragment {
 	 * ダイアログのアクションボタンがタップされた時の処理が記述されたメンバクラス。
 	 */
 	private class DialogButtonClickListener implements DialogInterface.OnClickListener {
-
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			//トーストメッセージ用文字列変数を用意。
