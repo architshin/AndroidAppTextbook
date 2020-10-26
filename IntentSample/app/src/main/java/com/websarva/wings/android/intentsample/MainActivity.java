@@ -1,7 +1,8 @@
 package com.websarva.wings.android.intentsample;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,12 +23,11 @@ import java.util.Map;
  *
  * @author Shinzo SAITO
  */
-public class MenuListActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu_list);
+		setContentView(R.layout.activity_main);
 
 		//画面部品ListViewを取得
 		ListView lvMenu = findViewById(R.id.lvMenu);
@@ -97,7 +97,7 @@ public class MenuListActivity extends AppCompatActivity {
 		//SimpleAdapter第5引数to用データの用意。
 		int[] to = {android.R.id.text1, android.R.id.text2};
 		//SimpleAdapterを生成。
-		SimpleAdapter adapter = new SimpleAdapter(MenuListActivity.this, menuList, android.R.layout.simple_list_item_2, from, to);
+		SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, menuList, android.R.layout.simple_list_item_2, from, to);
 		//アダプタの登録。
 		lvMenu.setAdapter(adapter);
 
@@ -109,7 +109,6 @@ public class MenuListActivity extends AppCompatActivity {
 	 * リストがタップされたときの処理が記述されたメンバクラス。
 	 */
 	private class ListItemClickListener implements AdapterView.OnItemClickListener {
-
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			//タップされた行のデータを取得。SimpleAdapterでは1行分のデータはMap型!
@@ -119,7 +118,7 @@ public class MenuListActivity extends AppCompatActivity {
 			String menuPrice = item.get("price");
 
 			//インテントオブジェクトを生成。
-			Intent intent = new Intent(MenuListActivity.this, MenuThanksActivity.class);
+			Intent intent = new Intent(MainActivity.this, MenuThanksActivity.class);
 			//第2画面に送るデータを格納。
 			intent.putExtra("menuName", menuName);
 			intent.putExtra("menuPrice", menuPrice);
