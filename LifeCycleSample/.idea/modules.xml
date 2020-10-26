@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LifeCycleSample.iml" filepath="$PROJECT_DIR$/.idea/modules/LifeCycleSample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LifeCycleSample.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LifeCycleSample.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidAppTextbook.LifeCycleSample.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidAppTextbook.LifeCycleSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidAppTextbook.LifeCycleSample.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidAppTextbook.LifeCycleSample.app.iml" />
     </modules>
   </component>
 </project>
