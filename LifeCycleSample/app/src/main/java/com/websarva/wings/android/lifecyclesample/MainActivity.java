@@ -1,7 +1,8 @@
 package com.websarva.wings.android.lifecyclesample;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,13 +16,12 @@ import android.view.View;
  *
  * @author Shinzo SAITO
  */
-public class LifeCycleMainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i("LifeCycleSample", "Main onCreate() called.");
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_life_cycle_main);
+		setContentView(R.layout.activity_main);
 	}
 
 	@Override
@@ -61,11 +61,11 @@ public class LifeCycleMainActivity extends AppCompatActivity {
 	}
 
 	/**
-	 * 「次の画面を表示」ボタンがタップされた時の処理。
+	 * ［次の画面を表示］ボタンがタップされた時の処理。
 	 */
 	public void onButtonClick(View view) {
 		//インテントオブジェクトを用意。
-		Intent intent = new Intent(LifeCycleMainActivity.this, LifeCycleSubActivity.class);
+		Intent intent = new Intent(MainActivity.this, SubActivity.class);
 		//アクティビティを起動。
 		startActivity(intent);
 	}

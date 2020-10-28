@@ -8,7 +8,7 @@
 
 @author Shinzo SAITO
 
-ファイル名=activity_life_cycle_main.xml
+ファイル名=activity_main.xml
 -->
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,5 +22,4 @@
 		android:layout_height="wrap_content"
 		android:onClick="onButtonClick"
 		android:text="@string/bt_next"/>
-
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.websarva.wings.android.lifecyclesample;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,13 +15,12 @@ import android.view.View;
  *
  * @author Shinzo SAITO
  */
-public class LifeCycleSubActivity extends AppCompatActivity {
-
+public class SubActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i("LifeCycleSample", "Sub onCreate() called.");
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_life_cycle_sub);
+		setContentView(R.layout.activity_sub);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class LifeCycleSubActivity extends AppCompatActivity {
 	}
 
 	/**
-	 * 「前の画面を表示」ボタンがタップされた時の処理。
+	 * ［前の画面を表示］ボタンがタップされた時の処理。
 	 */
 	public void onButtonClick(View view) {
 		// このアクティビティの終了。
