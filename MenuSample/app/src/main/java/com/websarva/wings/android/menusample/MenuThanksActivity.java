@@ -1,9 +1,12 @@
 package com.websarva.wings.android.menusample;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -18,7 +21,6 @@ import android.widget.TextView;
  * @author Shinzo SAITO
  */
 public class MenuThanksActivity extends AppCompatActivity {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,13 +48,19 @@ public class MenuThanksActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		//戻り値用の変数を初期値trueで用意。
+		boolean returnVal = true;
 		//選択されたメニューのIDを取得。
 		int itemId = item.getItemId();
 		//選択されたメニューが［戻る］の場合、アクティビティを終了。
 		if(itemId == android.R.id.home) {
 			finish();
 		}
-		//親クラスの同名メソッドを呼び出し、その戻り値を返却。
-		return super.onOptionsItemSelected(item);
+		//それ以外…
+		else {
+			//親クラスの同名メソッドを呼び出し、その戻り値をreturnValとする。
+			returnVal = super.onOptionsItemSelected(item);
+		}
+		return returnVal;
 	}
 }
