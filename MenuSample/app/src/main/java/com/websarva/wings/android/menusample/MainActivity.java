@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 	/**
 	 * SimpleAdapterの第5引数toに使用する定数フィールド。
 	 */
-	private static final int[] TO = {R.id.tvMenuName, R.id.tvMenuPrice};
+	private static final int[] TO = {R.id.tvMenuNameRow, R.id.tvMenuPriceRow};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
