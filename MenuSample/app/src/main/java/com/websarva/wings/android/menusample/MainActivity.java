@@ -1,7 +1,8 @@
 package com.websarva.wings.android.menusample;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -27,43 +28,37 @@ import java.util.Map;
  *
  * @author Shinzo SAITO
  */
-public class MenuListActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
 	/**
 	 * リストビューを表すフィールド。
 	 */
 	private ListView _lvMenu;
-
 	/**
 	 * リストビューに表示するリストデータ。
 	 */
 	private List<Map<String, Object>> _menuList;
-
 	/**
 	 * SimpleAdapterの第4引数fromに使用する定数フィールド。
 	 */
 	private static final String[] FROM = {"name", "price"};
-
 	/**
 	 * SimpleAdapterの第5引数toに使用する定数フィールド。
 	 */
-	private static final int[] TO = {R.id.tvMenuName, R.id.tvMenuPrice};
+	private static final int[] TO = {R.id.tvMenuNameRow, R.id.tvMenuPriceRow};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu_list);
+		setContentView(R.layout.activity_main);
 
 		//画面部品ListViewを取得し、フィールドに格納。
 		_lvMenu = findViewById(R.id.lvMenu);
-
 		//SimpleAdapterで使用する定食メニューListオブジェクトをprivateメソッドを利用して用意し、フィールドに格納。
 		_menuList = createTeishokuList();
 		//SimpleAdapterを生成。
-		SimpleAdapter adapter = new SimpleAdapter(MenuListActivity.this, _menuList, R.layout.row, FROM, TO);
+		SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, _menuList, R.layout.row, FROM, TO);
 		//アダプタの登録。
 		_lvMenu.setAdapter(adapter);
-
 		//リストタップのリスナクラス登録。
 		_lvMenu.setOnItemClickListener(new ListItemClickListener());
 
@@ -77,12 +72,13 @@ public class MenuListActivity extends AppCompatActivity {
 		MenuInflater inflater = getMenuInflater();
 		//オプションメニュー用xmlファイルをインフレイト。
 		inflater.inflate(R.menu.menu_options_menu_list, menu);
-		//親クラスの同名メソッドを呼び出し、その戻り値を返却。
-		return super.onCreateOptionsMenu(menu);
+		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		//戻り値用の変数を初期値trueで用意。
+		boolean returnVal = true;
 		//選択されたメニューのIDを取得。
 		int itemId = item.getItemId();
 		//IDのR値による処理の分岐。
@@ -97,13 +93,17 @@ public class MenuListActivity extends AppCompatActivity {
 				//カレーメニューリストデータの生成。
 				_menuList = createCurryList();
 				break;
+			//それ以外…
+			default:
+				//親クラスの同名メソッドを呼び出し、その戻り値をreturnValとする。
+				returnVal = super.onOptionsItemSelected(item);
+				break;
 		}
 		//SimpleAdapterを選択されたメニューデータで生成。
-		SimpleAdapter adapter = new SimpleAdapter(MenuListActivity.this, _menuList, R.layout.row, FROM, TO);
+		SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, _menuList, R.layout.row, FROM, TO);
 		//アダプタの登録。
 		_lvMenu.setAdapter(adapter);
-		//親クラスの同名メソッドを呼び出し、その戻り値を返却。
-		return super.onOptionsItemSelected(item);
+		return returnVal;
 	}
 
 	@Override
@@ -120,6 +120,8 @@ public class MenuListActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		//戻り値用の変数を初期値trueで用意。
+		boolean returnVal = true;
 		//長押しされたビューに関する情報が格納されたオブジェクトを取得。
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 		//長押しされたリストのポジションを取得。
@@ -136,16 +138,20 @@ public class MenuListActivity extends AppCompatActivity {
 				//メニューの説明文字列を取得。
 				String desc = (String) menu.get("desc");
 				//トーストを表示。
-				Toast.makeText(MenuListActivity.this, desc, Toast.LENGTH_LONG).show();
+				Toast.makeText(MainActivity.this, desc, Toast.LENGTH_LONG).show();
 				break;
 			//［ご注文］メニューが選択された時の処理。
 			case R.id.menuListContextOrder:
 				//注文処理。
 				order(menu);
 				break;
+			//それ以外…
+			default:
+				//親クラスの同名メソッドを呼び出し、その戻り値をreturnValとする。
+				returnVal = super.onContextItemSelected(item);
+				break;
 		}
-		//親クラスの同名メソッドを呼び出し、その戻り値を返却。
-		return super.onContextItemSelected(item);
+		return returnVal;
 	}
 
 	/**
@@ -297,7 +303,7 @@ public class MenuListActivity extends AppCompatActivity {
 		Integer menuPrice = (Integer) menu.get("price");
 
 		//インテントオブジェクトを生成。
-		Intent intent = new Intent(MenuListActivity.this, MenuThanksActivity.class);
+		Intent intent = new Intent(MainActivity.this, MenuThanksActivity.class);
 		//第2画面に送るデータを格納。
 		intent.putExtra("menuName", menuName);
 		//MenuThanksActivityでのデータ受け取りと合わせるために、金額にここで「円」を追加する。
@@ -310,7 +316,6 @@ public class MenuListActivity extends AppCompatActivity {
 	 * リストがタップされたときの処理が記述されたメンバクラス。
 	 */
 	private class ListItemClickListener implements AdapterView.OnItemClickListener {
-
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			//タップされた行のデータを取得。
