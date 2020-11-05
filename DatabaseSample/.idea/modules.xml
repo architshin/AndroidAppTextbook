@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DatabaseSample.iml" filepath="$PROJECT_DIR$/.idea/modules/DatabaseSample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DatabaseSample.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DatabaseSample.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidAppTextbook.DatabaseSample.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidAppTextbook.DatabaseSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidAppTextbook.DatabaseSample.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidAppTextbook.DatabaseSample.app.iml" />
     </modules>
   </component>
 </project>
