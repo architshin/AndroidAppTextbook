@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
 		//インサートSQLの実行。
 		stmt.executeInsert();
 
+		//感想欄の入力値を消去。
+		etNote.setText("");
 		//カクテル名を「未選択」に変更。
 		TextView tvCocktailName = findViewById(R.id.tvCocktailName);
 		tvCocktailName.setText(getString(R.string.tv_name));
-		//感想欄の入力値を消去。
-		etNote.setText("");
 		//保存ボタンをタップできないように変更。
 		Button btnSave = findViewById(R.id.btnSave);
 		btnSave.setEnabled(false);
@@ -122,6 +122,16 @@ public class MainActivity extends AppCompatActivity {
 			String sql = "SELECT * FROM cocktailmemos WHERE _id = " + _cocktailId;
 			//SQLの実行。
 			Cursor cursor = db.rawQuery(sql, null);
+
+			//以下はバインド変数を使う場合の記述。
+//			String sql = "SELECT * FROM cocktailmemos WHERE _id = ?";
+//			String[] params = {String.valueOf(_cocktailId)};
+//			Cursor cursor = db.rawQuery(sql, params);
+
+			//以下はSQLを使わない場合の記述。
+//			String[] params = {String.valueOf(_cocktailId)};
+//			Cursor cursor = db.query("cocktailmemos", null, "_id = ?", params, null, null, null);
+
 			//データベースから取得した値を格納する変数の用意。データがなかった時のための初期値も用意。
 			String note = "";
 			//SQL実行の戻り値であるカーソルオブジェクトをループさせてデータベース内のデータを取得。
