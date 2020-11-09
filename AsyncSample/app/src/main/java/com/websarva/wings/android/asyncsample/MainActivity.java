@@ -1,9 +1,13 @@
 package com.websarva.wings.android.asyncsample;
 
 import androidx.annotation.UiThread;
+import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.HandlerCompat;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -104,8 +108,11 @@ public class MainActivity extends AppCompatActivity {
 	 *
 	 * @param urlFull お天気情報を取得するURL。
 	 */
+	@UiThread
 	public void receiveWeatherInfo(final String urlFull) {
-		WeatherInfoBackgroundReceiver backgroundReceiver = new WeatherInfoBackgroundReceiver();
+		Looper mainLooper = Looper.getMainLooper();
+		Handler handler = HandlerCompat.createAsync(mainLooper);
+		WeatherInfoBackgroundReceiver backgroundReceiver = new WeatherInfoBackgroundReceiver(handler, urlFull);
 		ExecutorService executorService  = Executors.newSingleThreadExecutor();
 		executorService.submit(backgroundReceiver);
 	}
@@ -114,8 +121,43 @@ public class MainActivity extends AppCompatActivity {
 	 * 非同期でお天気情報APIにアクセスするためのクラス。
 	 */
 	private class WeatherInfoBackgroundReceiver implements Runnable {
+		/**
+		 * ハンドラオブジェクト。
+		 */
+		private final Handler _handler;
+		/**
+		 * お天気情報を取得するURL。
+		 */
+		private final String _urlFull;
+
+		/**
+		 * コンストラクタ。
+		 * 非同期でお天気情報Web APIにアクセスするのに必要な情報を取得する。
+		 *
+		 * @param handler ハンドラオブジェクト。
+		 * @param urlFull お天気情報を取得するURL。
+		 */
+		public WeatherInfoBackgroundReceiver(Handler handler , String urlFull) {
+			_handler = handler;
+			_urlFull = urlFull;
+		}
+
+		@WorkerThread
 		@Override
 		public void run() {
+			WeatherInfoPostExecutor postExecutor = new WeatherInfoPostExecutor();
+			_handler.post(postExecutor);
+		}
+	}
+
+	/**
+	 * 非同期でお天気情報を取得した後にUIスレッドでその情報を表示するためのクラス。
+	 */
+	private class WeatherInfoPostExecutor implements Runnable {
+		@UiThread
+		@Override
+		public void run() {
+
 		}
 	}
 
