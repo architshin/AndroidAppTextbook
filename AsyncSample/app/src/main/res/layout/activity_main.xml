@@ -6,7 +6,7 @@ Web API連携サンプル
 
 @author Shinzo SAITO
 
-ファイル名=activity_cocktail_list.xml
+ファイル名=activity_main.xml
 -->
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -53,7 +53,6 @@ Web API連携サンプル
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:textSize="20sp"/>
-
 		</LinearLayout>
 
 		<ScrollView
@@ -63,9 +62,8 @@ Web API連携サンプル
 			<TextView
 				android:id="@+id/tvWeatherDesc"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
+				android:layout_height="wrap_content"
 				android:textSize="15sp"/>
 		</ScrollView>
-
 	</LinearLayout>
 </LinearLayout>
