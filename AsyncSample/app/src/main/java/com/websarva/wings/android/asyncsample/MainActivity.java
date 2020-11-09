@@ -8,11 +8,20 @@ import androidx.core.os.HandlerCompat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -145,8 +154,75 @@ public class MainActivity extends AppCompatActivity {
 		@WorkerThread
 		@Override
 		public void run() {
+			// HTTP接続を行うHttpURLConnectionオブジェクトを宣言。finallyで確実に解放するためにtry外で宣言。
+			HttpURLConnection con = null;
+			// HTTP接続のレスポンスデータとして取得するInputStreamオブジェクトを宣言。同じくtry外で宣言。
+			InputStream is = null;
+			// 天気情報サービスから取得したJSON文字列。天気情報が格納されている。
+			String result = "";
+			try {
+				// URLオブジェクトを生成。
+				URL url = new URL(_urlFull);
+				// URLオブジェクトからHttpURLConnectionオブジェクトを取得。
+				con = (HttpURLConnection) url.openConnection();
+				// 接続に使ってもよい時間を設定。
+				con.setConnectTimeout(1000);
+				// データ取得に使ってもよい時間。
+				con.setReadTimeout(1000);
+				// HTTP接続メソッドをGETに設定。
+				con.setRequestMethod("GET");
+				// 接続。
+				con.connect();
+				// HttpURLConnectionオブジェクトからレスポンスデータを取得。
+				is = con.getInputStream();
+				// レスポンスデータであるInputStreamオブジェクトを文字列に変換。
+				result = is2String(is);
+			}
+			catch(MalformedURLException ex) {
+				Log.e(DEBUG_TAG, "URL変換失敗", ex);
+			}
+			// タイムアウトの場合の例外処理。
+			catch(SocketTimeoutException ex) {
+				Log.w(DEBUG_TAG, "通信タイムアウト", ex);
+			}
+			catch(IOException ex) {
+				Log.e(DEBUG_TAG, "通信失敗", ex);
+			}
+			finally {
+				// HttpURLConnectionオブジェクトがnullでないなら解放。
+				if(con != null) {
+					con.disconnect();
+				}
+				// InputStreamオブジェクトがnullでないなら解放。
+				if(is != null) {
+					try {
+						is.close();
+					}
+					catch(IOException ex) {
+						Log.e(DEBUG_TAG, "InputStream解放失敗", ex);
+					}
+				}
+			}
 			WeatherInfoPostExecutor postExecutor = new WeatherInfoPostExecutor();
 			_handler.post(postExecutor);
+		}
+
+		/**
+		 * InputStreamオブジェクトを文字列に変換するメソッド。 変換文字コードはUTF-8。
+		 *
+		 * @param is 変換対象のInputStreamオブジェクト。
+		 * @return 変換された文字列。
+		 * @throws IOException 変換に失敗した時に発生。
+		 */
+		private String is2String(InputStream is) throws IOException {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+			StringBuffer sb = new StringBuffer();
+			char[] b = new char[1024];
+			int line;
+			while(0 <= (line = reader.read(b))) {
+				sb.append(b, 0, line);
+			}
+			return sb.toString();
 		}
 	}
 
