@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 『Androidアプリ開発の教科書』
@@ -103,6 +105,18 @@ public class MainActivity extends AppCompatActivity {
 	 * @param urlFull お天気情報を取得するURL。
 	 */
 	public void receiveWeatherInfo(final String urlFull) {
+		WeatherInfoBackgroundReceiver backgroundReceiver = new WeatherInfoBackgroundReceiver();
+		ExecutorService executorService  = Executors.newSingleThreadExecutor();
+		executorService.submit(backgroundReceiver);
+	}
+
+	/**
+	 * 非同期でお天気情報APIにアクセスするためのクラス。
+	 */
+	private class WeatherInfoBackgroundReceiver implements Runnable {
+		@Override
+		public void run() {
+		}
 	}
 
 	/**
