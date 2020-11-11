@@ -80,5 +80,4 @@
 			android:onClick="onMapShowCurrentButtonClick"
 			android:text="@string/bt_map_current"/>
 	</LinearLayout>
-
 </LinearLayout>
