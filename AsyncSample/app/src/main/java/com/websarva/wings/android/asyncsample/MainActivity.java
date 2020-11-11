@@ -13,6 +13,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -203,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
 					}
 				}
 			}
-			WeatherInfoPostExecutor postExecutor = new WeatherInfoPostExecutor();
+			WeatherInfoPostExecutor postExecutor = new WeatherInfoPostExecutor(result);
 			_handler.post(postExecutor);
 		}
 
@@ -230,10 +235,63 @@ public class MainActivity extends AppCompatActivity {
 	 * 非同期でお天気情報を取得した後にUIスレッドでその情報を表示するためのクラス。
 	 */
 	private class WeatherInfoPostExecutor implements Runnable {
+		/**
+		 * 取得したお天気情報JSON文字列。
+		 */
+		private final String _result;
+
+		/**
+		 * コンストラクタ。
+		 *
+		 * @param result Web APIから取得したお天気情報JSON文字列。
+		 */
+		public WeatherInfoPostExecutor(String result) {
+			_result = result;
+		}
+
 		@UiThread
 		@Override
 		public void run() {
+			// 都市名。
+			String cityName = "";
+			// 天気。
+			String weather = "";
+			// 緯度
+			String latitude = "";
+			// 経度。
+			String longitude = "";
+			try {
+				// ルートJSONオブジェクトを生成。
+				JSONObject rootJSON = new JSONObject(_result);
+				// 都市名文字列を取得。
+				cityName = rootJSON.getString("name");
+				// 緯度経度情報JSONオブジェクトを取得。
+				JSONObject coordJSON = rootJSON.getJSONObject("coord");
+				// 緯度情報文字列を取得。
+				latitude = coordJSON.getString("lat");
+				// 経度情報文字列を取得。
+				longitude = coordJSON.getString("lon");
+				// 天気情報JSON配列オブジェクトを取得。
+				JSONArray weatherJSONArray = rootJSON.getJSONArray("weather");
+				// 現在の天気情報JSONオブジェクトを取得。
+				JSONObject weatherJSON = weatherJSONArray.getJSONObject(0);
+				// 現在の天気情報文字列を取得。
+				weather = weatherJSON.getString("description");
+			}
+			catch(JSONException ex) {
+				Log.e(DEBUG_TAG, "JSON解析失敗", ex);
+			}
 
+			// 画面に表示する「〇〇の天気」文字列を生成。
+			String telop = cityName + "の天気";
+			// 天気の詳細情報を表示する文字列を生成。
+			String desc = "現在は" + weather + "です。\n緯度は" + latitude + "度で経度は" + longitude + "度です。";
+			// 天気情報を表示するTextViewを取得。
+			TextView tvWeatherTelop = findViewById(R.id.tvWeatherTelop);
+			TextView tvWeatherDesc = findViewById(R.id.tvWeatherDesc);
+			// 天気情報を表示。
+			tvWeatherTelop.setText(telop);
+			tvWeatherDesc.setText(desc);
 		}
 	}
 
