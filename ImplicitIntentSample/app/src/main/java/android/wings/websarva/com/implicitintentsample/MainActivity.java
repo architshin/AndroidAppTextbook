@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
 		_fusedLocationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
 		_locationRequest = LocationRequest.create();
-		_locationRequest.setInterval(10000);
-		_locationRequest.setFastestInterval(5000);
+		_locationRequest.setInterval(1000);
+		_locationRequest.setFastestInterval(500);
 		_locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 		_onUpdateLocation = new OnUpdateLocation();
 	}
@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 			//onCreate()メソッドを終了。
 			return;
 		}
+		//位置情報の追跡を開始。
 		_fusedLocationClient.requestLocationUpdates(_locationRequest, _onUpdateLocation, Looper.getMainLooper());
 	}
 
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+
+		//位置情報の追跡を停止。
 		_fusedLocationClient.removeLocationUpdates(_onUpdateLocation);
 	}
 
