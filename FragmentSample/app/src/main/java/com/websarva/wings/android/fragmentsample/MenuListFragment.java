@@ -89,6 +89,21 @@ public class MenuListFragment extends Fragment {
 		menuList.add(menu);
 
 		menu = new HashMap<>();
+		menu.put("name", "回鍋肉定食");
+		menu.put("price", "750円");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "麻婆豆腐定食");
+		menu.put("price", "800円");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "青椒肉絲定食");
+		menu.put("price", "900円");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
 		menu.put("name", "焼き魚定食");
 		menu.put("price", "850円");
 		menuList.add(menu);
