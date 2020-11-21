@@ -8,7 +8,7 @@
 
 @author Shinzo SAITO
 
-ファイル名=layout/activity_menu_list.xml
+ファイル名=layout/activity_main.xml
 -->
 <FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,5 +20,4 @@
 		android:name="com.websarva.wings.android.fragmentsample.MenuListFragment"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"/>
-
 </FrameLayout>
