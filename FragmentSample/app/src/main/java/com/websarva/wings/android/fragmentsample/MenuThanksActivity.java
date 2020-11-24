@@ -1,6 +1,7 @@
 package com.websarva.wings.android.fragmentsample;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 /**
@@ -13,7 +14,6 @@ import android.os.Bundle;
  * @author Shinzo SAITO
  */
 public class MenuThanksActivity extends AppCompatActivity {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
