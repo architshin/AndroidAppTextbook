@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.io.IOException;
 
@@ -50,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
 		catch(IOException ex) {
 			Log.e("MediaSample", "メディアプレーヤー準備時の例外発生", ex);
 		}
+
+		//スイッチを取得。
+		SwitchMaterial loopSwitch = findViewById(R.id.swLoop);
+		//スイッチにリスナを設定。
+		loopSwitch.setOnCheckedChangeListener(new LoopSwitchChangedListener());
 	}
 
 	@Override
@@ -92,6 +100,33 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	/**
+	 * 戻るボタンタップ時の処理メソッド。
+	 *
+	 * @param view 画面部品
+	 */
+	public void onBackButtonClick(View view) {
+		//再生位置を先頭に変更。
+		_player.seekTo(0);
+	}
+
+	/**
+	 * 進むボタンタップ時の処理メソッド。
+	 *
+	 * @param view 画面部品
+	 */
+	public void onForwardButtonClick(View view) {
+		//現在再生中のメディファイルの長さを取得。
+		int duration = _player.getDuration();
+		//再生位置を終端に変更。
+		_player.seekTo(duration);
+		//再生中でないなら…
+		if(!_player.isPlaying()) {
+			//再生を開始。
+			_player.start();
+		}
+	}
+
+	/**
 	 * プレーヤーの再生準備が整った時のリスナクラス。
 	 */
 	private class PlayerPreparedListener implements MediaPlayer.OnPreparedListener {
@@ -113,9 +148,23 @@ public class MainActivity extends AppCompatActivity {
 	private class PlayerCompletionListener implements MediaPlayer.OnCompletionListener {
 		@Override
 		public void onCompletion(MediaPlayer mp) {
-			// 再生ボタンのラベルを「再生」に設定。
-			Button btPlay = findViewById(R.id.btPlay);
-			btPlay.setText(R.string.bt_play_play);
+			//ループ設定がされていないならば…
+			if(!_player.isLooping()) {
+				// 再生ボタンのラベルを「再生」に設定。
+				Button btPlay = findViewById(R.id.btPlay);
+				btPlay.setText(R.string.bt_play_play);
+			}
+		}
+	}
+
+	/**
+	 * リピート再生スイッチの切替時のリスナクラス。
+	 */
+	private class LoopSwitchChangedListener implements CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			//ループするかどうかを設定。
+			_player.setLooping(isChecked);
 		}
 	}
 }
