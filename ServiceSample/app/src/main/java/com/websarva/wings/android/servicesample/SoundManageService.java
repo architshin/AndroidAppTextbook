@@ -3,6 +3,7 @@ package com.websarva.wings.android.servicesample;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -100,6 +101,32 @@ public class SoundManageService extends Service {
 		public void onPrepared(MediaPlayer mp) {
 			// メディアを再生。
 			mp.start();
+
+			// Notificationを作成するBuilderクラス生成。
+			NotificationCompat.Builder builder = new NotificationCompat.Builder(SoundManageService.this, CHANNEL_ID);
+			// 通知エリアに表示されるアイコンを設定。
+			builder.setSmallIcon(android.R.drawable.ic_dialog_info);
+			// 通知ドロワーでの表示タイトルを設定。
+			builder.setContentTitle(getString(R.string.msg_notification_title_start));
+			// 通知ドロワーでの表示メッセージを設定。
+			builder.setContentText(getString(R.string.msg_notification_text_start));
+
+			// 起動先Activityクラスを指定したIntentオブジェクトを生成。
+			Intent intent = new Intent(SoundManageService.this, MainActivity.class);
+			// 起動先アクティビティに引き継ぎデータを格納。
+			intent.putExtra("fromNotification", true);
+			// PendingIntentオブジェクトを取得。
+			PendingIntent stopServiceIntent = PendingIntent.getActivity(SoundManageService.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+			// PendingIntentオブジェクトをビルダーに設定。
+			builder.setContentIntent(stopServiceIntent);
+			// タップされた通知メッセージを自動的に消去するように設定。
+			builder.setAutoCancel(true);
+
+			// BuilderからNotificationオブジェクトを生成。
+			Notification notification = builder.build();
+
+			// Notificationオブジェクトを利用してサービスをフォアグラウンド化。
+			startForeground(200, notification);
 		}
 	}
 
