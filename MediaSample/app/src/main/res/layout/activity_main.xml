@@ -8,7 +8,7 @@
 
 @author Shinzo SAITO
 
-ファイル名=activity_media_control.xml
+ファイル名=activity_main.xml
 -->
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -47,20 +47,9 @@
 			android:text="@string/bt_forward"/>
 	</LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="horizontal">
-
-		<TextView
-			android:id="@+id/tvLoop"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/tv_loop"/>
-
-		<Switch
-			android:id="@+id/swLoop"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
-	</LinearLayout>
+	<com.google.android.material.switchmaterial.SwitchMaterial
+		android:id="@+id/swLoop"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/tv_loop"/>
 </LinearLayout>
