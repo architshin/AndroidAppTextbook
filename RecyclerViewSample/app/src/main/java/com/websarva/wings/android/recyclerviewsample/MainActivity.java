@@ -2,8 +2,10 @@ package com.websarva.wings.android.recyclerviewsample;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 		//LinearLayoutManagerオブジェクトを生成。
 		LinearLayoutManager layout = new LinearLayoutManager(MainActivity.this);
 		//以下は他の2種のレイアウトマネージャー。
-//		GridLayoutManager layout = new GridLayoutManager(ScrollListActivity.this, 5);
+//		GridLayoutManager layout = new GridLayoutManager(MainActivity.this, 5);
 //		StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL);
 		//RecyclerViewにレイアウトマネージャーとしてLinearLayoutManagerを設定。
 		lvMenu.setLayoutManager(layout);
