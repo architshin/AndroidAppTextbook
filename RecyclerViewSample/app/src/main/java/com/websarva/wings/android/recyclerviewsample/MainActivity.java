@@ -2,6 +2,7 @@ package com.websarva.wings.android.recyclerviewsample;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -66,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
 		RecyclerListAdapter adapter = new RecyclerListAdapter(menuList);
 		//RecyclerViewにアダプタオブジェクトを設定。
 		lvMenu.setAdapter(adapter);
+
+		//区切り専用のオブジェクトを生成。
+		DividerItemDecoration decorator = new DividerItemDecoration(MainActivity.this, layout.getOrientation());
+		//RecyclerViewに区切り線オブジェクトを設定。
+		lvMenu.addItemDecoration(decorator);
 	}
 
 	/**
@@ -202,6 +209,8 @@ public class MainActivity extends AppCompatActivity {
 			LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
 			//row.xmlをインフレートし、1行分の画面部品とする。
 			View view = inflater.inflate(R.layout.row, parent, false);
+			//インフレートされた1行分の画面部品にリスナを設定。
+			view.setOnClickListener(new ItemClickListener());
 			//ビューホルダオブジェクトを生成。
 			RecyclerListViewHolder holder = new RecyclerListViewHolder(view);
 			//生成したビューホルダをリターン。
@@ -227,6 +236,23 @@ public class MainActivity extends AppCompatActivity {
 		public int getItemCount() {
 			//リストデータ中の件数をリターン。
 			return _listData.size();
+		}
+	}
+
+	/**
+	 * リストをタップした時のリスナクラス。
+	 */
+	private class ItemClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View view) {
+			//タップされたLinearLayout内にあるメニュー名表示TextViewを取得。
+			TextView tvMenuName =  view.findViewById(R.id.tvMenuNameRow);
+			//メニュー名表示TextViewから表示されているメニュー名文字列を取得。
+			String menuName = tvMenuName.getText().toString();
+			//トーストに表示する文字列を生成。
+			String msg = getString(R.string.msg_header) + menuName;
+			//トースト表示。
+			Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
 }
