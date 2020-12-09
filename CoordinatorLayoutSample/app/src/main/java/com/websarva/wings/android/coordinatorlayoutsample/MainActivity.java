@@ -1,26 +1,27 @@
 package com.websarva.wings.android.coordinatorlayoutsample;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.graphics.Color;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 /**
  * 『Androidアプリ開発の教科書』
- * 第15章
- * ツスロール連動サンプル
+ * 第16章
+ * スクロール連動サンプル
  *
  * アクティビティクラス。
  *
  * @author Shinzo SAITO
  */
-public class ScrollArticleActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_scroll_article);
+		setContentView(R.layout.activity_main);
 
 		//Toolbarを取得。
 		Toolbar toolbar = findViewById(R.id.toolbar);
