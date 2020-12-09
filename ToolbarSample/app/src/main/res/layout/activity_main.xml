@@ -8,19 +8,19 @@
 
 @author Shinzo SAITO
 
-ファイル名=activity_scroll_article.xml
+ファイル名=activity_main.xml
 -->
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical">
-
-	<android.support.v7.widget.Toolbar
+	
+	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/toolbar"
 		android:layout_width="match_parent"
 		android:layout_height="?attr/actionBarSize"
-		android:background="@color/colorPrimary"
+		android:background="?attr/colorPrimary"
 		android:elevation="10dp"/>
 
 	<ScrollView
