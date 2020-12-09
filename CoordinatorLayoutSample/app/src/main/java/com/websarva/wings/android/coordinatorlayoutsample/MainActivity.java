@@ -11,7 +11,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 /**
  * 『Androidアプリ開発の教科書』
  * 第16章
- * ツスロール連動サンプル
+ * スクロール連動サンプル
  *
  * アクティビティクラス。
  *
