@@ -1,22 +1,22 @@
 package com.websarva.wings.android.recyclerviewsample;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import android.graphics.Color;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,19 +25,18 @@ import java.util.Map;
 
 /**
  * 『Androidアプリ開発の教科書』
- * 第15章
+ * 第17章
  * リサイクラービューサンプル
  *
  * アクティビティクラス。
  *
  * @author Shinzo SAITO
  */
-public class ScrollListActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_scroll_list);
+		setContentView(R.layout.activity_main);
 
 		//Toolbarを取得。
 		Toolbar toolbar = findViewById(R.id.toolbar);
@@ -57,9 +56,9 @@ public class ScrollListActivity extends AppCompatActivity {
 		//RecyclerViewを取得。
 		RecyclerView lvMenu = findViewById(R.id.lvMenu);
 		//LinearLayoutManagerオブジェクトを生成。
-		LinearLayoutManager layout = new LinearLayoutManager(ScrollListActivity.this);
+		LinearLayoutManager layout = new LinearLayoutManager(MainActivity.this);
 		//以下は他の2種のレイアウトマネージャー。
-//		GridLayoutManager layout = new GridLayoutManager(ScrollListActivity.this, 5);
+//		GridLayoutManager layout = new GridLayoutManager(MainActivity.this, 5);
 //		StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL);
 		//RecyclerViewにレイアウトマネージャーとしてLinearLayoutManagerを設定。
 		lvMenu.setLayoutManager(layout);
@@ -71,7 +70,7 @@ public class ScrollListActivity extends AppCompatActivity {
 		lvMenu.setAdapter(adapter);
 
 		//区切り専用のオブジェクトを生成。
-		DividerItemDecoration decorator = new DividerItemDecoration(ScrollListActivity.this, layout.getOrientation());
+		DividerItemDecoration decorator = new DividerItemDecoration(MainActivity.this, layout.getOrientation());
 		//RecyclerViewに区切り線オブジェクトを設定。
 		lvMenu.addItemDecoration(decorator);
 	}
@@ -164,12 +163,12 @@ public class ScrollListActivity extends AppCompatActivity {
 		/**
 		 * リスト1行分中でメニュー名を表示する画面部品。
 		 */
-		public TextView _tvMenuName;
+		public TextView _tvMenuNameRow;
 
 		/**
 		 * リスト1行分中でメニュー金額を表示する画面部品。
 		 */
-		public TextView _tvMenuPrice;
+		public TextView _tvMenuPriceRow;
 
 		/**
 		 * コンストラクタ。
@@ -180,8 +179,8 @@ public class ScrollListActivity extends AppCompatActivity {
 			//親クラスのコンストラクタの呼び出し。
 			super(itemView);
 			//引数で渡されたリスト1行分の画面部品中から表示に使われるTextViewを取得。
-			_tvMenuName = itemView.findViewById(R.id.tvMenuName);
-			_tvMenuPrice = itemView.findViewById(R.id.tvMenuPrice);
+			_tvMenuNameRow = itemView.findViewById(R.id.tvMenuNameRow);
+			_tvMenuPriceRow = itemView.findViewById(R.id.tvMenuPriceRow);
 		}
 	}
 
@@ -207,7 +206,7 @@ public class ScrollListActivity extends AppCompatActivity {
 		@Override
 		public RecyclerListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 			//レイアウトインフレータを取得。
-			LayoutInflater inflater = LayoutInflater.from(ScrollListActivity.this);
+			LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
 			//row.xmlをインフレートし、1行分の画面部品とする。
 			View view = inflater.inflate(R.layout.row, parent, false);
 			//インフレートされた1行分の画面部品にリスナを設定。
@@ -229,8 +228,8 @@ public class ScrollListActivity extends AppCompatActivity {
 			//表示用に金額を文字列に変換。
 			String menuPriceStr = String.valueOf(menuPrice);
 			//メニュー名と金額をビューホルダ中のTextViewに設定。
-			holder._tvMenuName.setText(menuName);
-			holder._tvMenuPrice.setText(menuPriceStr);
+			holder._tvMenuNameRow.setText(menuName);
+			holder._tvMenuPriceRow.setText(menuPriceStr);
 		}
 
 		@Override
@@ -244,17 +243,16 @@ public class ScrollListActivity extends AppCompatActivity {
 	 * リストをタップした時のリスナクラス。
 	 */
 	private class ItemClickListener implements View.OnClickListener {
-
 		@Override
 		public void onClick(View view) {
 			//タップされたLinearLayout内にあるメニュー名表示TextViewを取得。
-			TextView tvMenuName =  view.findViewById(R.id.tvMenuName);
+			TextView tvMenuName =  view.findViewById(R.id.tvMenuNameRow);
 			//メニュー名表示TextViewから表示されているメニュー名文字列を取得。
 			String menuName = tvMenuName.getText().toString();
 			//トーストに表示する文字列を生成。
 			String msg = getString(R.string.msg_header) + menuName;
 			//トースト表示。
-			Toast.makeText(ScrollListActivity.this, msg, Toast.LENGTH_SHORT).show();
+			Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
 }
