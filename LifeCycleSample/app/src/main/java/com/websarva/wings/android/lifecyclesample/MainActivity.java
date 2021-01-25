@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
 	 * ［次の画面を表示］ボタンがタップされた時の処理。
 	 */
 	public void onButtonClick(View view) {
-		//インテントオブジェクトを用意。
+		// インテントオブジェクトを用意。
 		Intent intent = new Intent(MainActivity.this, SubActivity.class);
-		//アクティビティを起動。
+		// アクティビティを起動。
 		startActivity(intent);
 	}
 }
