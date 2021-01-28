@@ -140,7 +140,7 @@ public class MenuListFragment extends Fragment {
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		//親クラスのメソッド呼び出し。
+		// 親クラスのメソッド呼び出し。
 		super.onActivityCreated(savedInstanceState);
 		// このフラグメントが所属するアクティビティオブジェクトを取得。
 		Activity parentActivity = getActivity();
