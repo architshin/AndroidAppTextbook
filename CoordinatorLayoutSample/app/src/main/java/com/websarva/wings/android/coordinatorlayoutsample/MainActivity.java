@@ -23,19 +23,19 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		//Toolbarを取得。
+		// Toolbarを取得。
 		Toolbar toolbar = findViewById(R.id.toolbar);
-		//ツールバーにロゴを設定。
+		// ツールバーにロゴを設定。
 		toolbar.setLogo(R.mipmap.ic_launcher);
-		//アクションバーにツールバーを設定。
+		// アクションバーにツールバーを設定。
 		setSupportActionBar(toolbar);
-		//CollapsingToolbarLayoutを取得。
+		// CollapsingToolbarLayoutを取得。
 		CollapsingToolbarLayout toolbarLayout = findViewById(R.id.toolbarLayout);
-		//タイトルを設定。
+		// タイトルを設定。
 		toolbarLayout.setTitle(getString(R.string.toolbar_title));
-		//通常サイズ時の文字色を設定。
+		// 通常サイズ時の文字色を設定。
 		toolbarLayout.setExpandedTitleColor(Color.WHITE);
-		//縮小サイズ時の文字色を設定。
+		// 縮小サイズ時の文字色を設定。
 		toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY);
 	}
 }
