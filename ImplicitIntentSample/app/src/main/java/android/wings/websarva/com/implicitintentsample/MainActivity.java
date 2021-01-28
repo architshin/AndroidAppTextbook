@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 			// ACCESS_FINE_LOCATIONの許可を求めるダイアログを表示。その際、リクエストコードを1000に設定。
 			String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
 			ActivityCompat.requestPermissions(MainActivity.this, permissions, 1000);
-			// onCreate()メソッドを終了。
+			// onResume()メソッドを終了。
 			return;
 		}
 		// 位置情報の追跡を開始。

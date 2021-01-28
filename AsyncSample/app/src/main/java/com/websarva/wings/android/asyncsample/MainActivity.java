@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 		ListView lvCityList = findViewById(R.id.lvCityList);
 		String[] from = {"name"};
 		int[] to = {android.R.id.text1};
-		SimpleAdapter adapter = new SimpleAdapter(getApplicationContext(), _list, android.R.layout.simple_expandable_list_item_1, from, to);
+		SimpleAdapter adapter = new SimpleAdapter(getApplicationContext(), _list, android.R.layout.simple_list_item_1, from, to);
 		lvCityList.setAdapter(adapter);
 		lvCityList.setOnItemClickListener(new ListItemClickListener());
 	}
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 	 * @param urlFull お天気情報を取得するURL。
 	 */
 	@UiThread
-	public void receiveWeatherInfo(final String urlFull) {
+	private void receiveWeatherInfo(final String urlFull) {
 		Looper mainLooper = Looper.getMainLooper();
 		Handler handler = HandlerCompat.createAsync(mainLooper);
 		WeatherInfoBackgroundReceiver backgroundReceiver = new WeatherInfoBackgroundReceiver(handler, urlFull);
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 		@WorkerThread
 		@Override
 		public void run() {
-			// HTTP接続を行うHttpURLConnectionオブジェクトを宣言。finallyで確実に解放するためにtry外で宣言。
+			// HTTP接続を行うHttpURLConnectionオブジェクトを宣言。finallyで解放するためにtry外で宣言。
 			HttpURLConnection con = null;
 			// HTTP接続のレスポンスデータとして取得するInputStreamオブジェクトを宣言。同じくtry外で宣言。
 			InputStream is = null;

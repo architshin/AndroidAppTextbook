@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		//ListViewオブジェクトを取得。
+		// ListViewオブジェクトを取得。
 		ListView lvMenu = findViewById(R.id.lvMenu);
-		//リストビューに表示するリストデータ用Listオブジェクトを作成。
+		// リストビューに表示するリストデータ用Listオブジェクトを作成。
 		List<String> menuList = new ArrayList<>();
-		//リストデータの登録。
+		// リストデータの登録。
 		menuList.add("から揚げ定食");
 		menuList.add("ハンバーグ定食");
 		menuList.add("生姜焼き定食");
@@ -41,13 +41,16 @@ public class MainActivity extends AppCompatActivity {
 		menuList.add("ミンチかつ定食");
 		menuList.add("チキンカツ定食");
 		menuList.add("コロッケ定食");
+		menuList.add("回鍋肉定食");
+		menuList.add("麻婆豆腐定食");
+		menuList.add("青椒肉絲定食");
 		menuList.add("焼き魚定食");
 		menuList.add("焼肉定食");
-		//アダプタオブジェクトを生成。
+		// アダプタオブジェクトを生成。
 		ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, menuList);
-		//リストビューにアダプタオブジェクトを設定。
+		// リストビューにアダプタオブジェクトを設定。
 		lvMenu.setAdapter(adapter);
-		//リストビューにリスナを設定。
+		// リストビューにリスナを設定。
 		lvMenu.setOnItemClickListener(new ListItemClickListener());
 	}
 
@@ -57,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
 	private class ListItemClickListener implements AdapterView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			//注文確認ダイアログフラグメントオブジェクトを生成。
+			// 注文確認ダイアログフラグメントオブジェクトを生成。
 			OrderConfirmDialogFragment dialogFragment = new OrderConfirmDialogFragment();
-			//ダイアログ表示。
+			// ダイアログ表示。
 			dialogFragment.show(getSupportFragmentManager(), "OrderConfirmDialogFragment");
 		}
 	}

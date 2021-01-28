@@ -58,31 +58,31 @@ public class MainActivity extends AppCompatActivity {
 	 * 画像部分がタップされたときの処理メソッド。
 	 */
 	public void onCameraImageClick(View view) {
-		//日時データを「yyyyMMddHHmmss」の形式に整形するフォーマッタを生成。
+		// 日時データを「yyyyMMddHHmmss」の形式に整形するフォーマッタを生成。
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		//現在の日時を取得。
+		// 現在の日時を取得。
 		Date now = new Date(System.currentTimeMillis());
-		//取得した日時データを「yyyyMMddHHmmss」形式に整形した文字列を生成。
+		// 取得した日時データを「yyyyMMddHHmmss」形式に整形した文字列を生成。
 		String nowStr = dateFormat.format(now);
-		//ストレージに格納する画像のファイル名を生成。ファイル名の一意を確保するためにタイムスタンプの値を利用。
+		// ストレージに格納する画像のファイル名を生成。ファイル名の一意を確保するためにタイムスタンプの値を利用。
 		String fileName = "CameraIntentSamplePhoto_" + nowStr +".jpg";
 
-		//ContentValuesオブジェクトを生成。
+		// ContentValuesオブジェクトを生成。
 		ContentValues values = new ContentValues();
-		//画像ファイル名を設定。
+		// 画像ファイル名を設定。
 		values.put(MediaStore.Images.Media.TITLE, fileName);
-		//画像ファイルの種類を設定。
+		// 画像ファイルの種類を設定。
 		values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
 
-		//ContentResolverオブジェクトを生成。
+		// ContentResolverオブジェクトを生成。
 		ContentResolver resolver = getContentResolver();
-		//ContentResolverを使ってURIオブジェクトを生成。
+		// ContentResolverを使ってURIオブジェクトを生成。
 		_imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-		//Intentオブジェクトを生成。
+		// Intentオブジェクトを生成。
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		//Extra情報として_imageUriを設定。
+		// Extra情報として_imageUriを設定。
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, _imageUri);
-		//アクティビティを起動。
+		// アクティビティを起動。
 		startActivityForResult(intent, 200);
 	}
 }

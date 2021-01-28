@@ -1,6 +1,7 @@
 package com.websarva.wings.android.viewbindersample;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,26 +23,25 @@ import java.util.Map;
  *
  * @author Shinzo SAITO
  */
-public class NameListActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_name_list);
+		setContentView(R.layout.activity_main);
 
-		//SimpleAdapterで使用する名前Listオブジェクトをprivateメソッドを利用して用意。
+		// SimpleAdapterで使用する名前Listオブジェクトをprivateメソッドを利用して用意。
 		List<Map<String, Object>> nameList = createNameList();
-		//SimpleAdapterの第4引数fromに使用する変数を用意。
+		// SimpleAdapterの第4引数fromに使用する変数を用意。
 		String[] from = {"name", "sex"};
-		//SimpleAdapterの第5引数toに使用する変数を用意。
+		// SimpleAdapterの第5引数toに使用する変数を用意。
 		int[] to = {R.id.tvName, R.id.imSex};
-		//SimpleAdapterを生成。
-		SimpleAdapter adapter = new SimpleAdapter(NameListActivity.this, nameList, R.layout.row, from, to);
-		//カスタムビューバインダを登録。
+		// SimpleAdapterを生成。
+		SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, nameList, R.layout.row, from, to);
+		// カスタムビューバインダを登録。
 		adapter.setViewBinder(new CustomViewBinder());
-		//画面部品ListViewを取得。
+		// 画面部品ListViewを取得。
 		ListView lvPhones = findViewById(R.id.lvNameList);
-		//アダプタの登録。
+		// アダプタの登録。
 		lvPhones.setAdapter(adapter);
 	}
 
@@ -51,22 +51,22 @@ public class NameListActivity extends AppCompatActivity {
 	 * @return 生成された名前リストデータ。
 	 */
 	private List<Map<String, Object>> createNameList() {
-		//名前リスト用のListオブジェクトを用意。
+		// 名前リスト用のListオブジェクトを用意。
 		List<Map<String, Object>> nameList = new ArrayList<>();
 
-		//一人目のデータを格納するMapオブジェクトの用意とnameListへのデータ登録。
+		// 一人目のデータを格納するMapオブジェクトの用意とnameListへのデータ登録。
 		Map<String, Object> person = new HashMap<>();
 		person.put("name", "田中一郎");
 		person.put("sex", 1);
 		nameList.add(person);
 
-		//二人目のデータを格納するMapオブジェクトの用意とnameListへのデータ登録。
+		// 二人目のデータを格納するMapオブジェクトの用意とnameListへのデータ登録。
 		person = new HashMap<>();
 		person.put("name", "江藤香織");
 		person.put("sex", 0);
 		nameList.add(person);
 
-		//以下データ登録の繰り返し。
+		// 以下データ登録の繰り返し。
 		person = new HashMap<>();
 		person.put("name", "中山裕子");
 		person.put("sex", 0);
@@ -129,7 +129,6 @@ public class NameListActivity extends AppCompatActivity {
 	 * リストビューのカスタムビューバインダクラス。
 	 */
 	private class CustomViewBinder implements SimpleAdapter.ViewBinder {
-
 		@Override
 		public boolean setViewValue(View view, Object data, String textRepresentation) {
 			/*
@@ -140,32 +139,32 @@ public class NameListActivity extends AppCompatActivity {
 			 * viewとdataの組合わせはfromとtoの組合せそのもの。
 			 */
 
-			//リスト1行内でデータを割り当てる画面部品のidのR値を取得。
+			// リスト1行内でデータを割り当てる画面部品のidのR値を取得。
 			int viewId = view.getId();
-			//idのR値に応じて分岐。
+			// idのR値に応じて分岐。
 			switch(viewId) {
-				//名前を表示するTextViewなら…
+				// 名前を表示するTextViewなら…
 				case R.id.tvName:
-					//TextViewにキャストして、表示データ(名前)をセットする。
+					// TextViewにキャストして、表示データ(名前)をセットする。
 					TextView tvName = (TextView) view;
 					tvName.setText(textRepresentation);
 					return true;
-				//性別アイコンを表示するImageViewなら…
+				// 性別アイコンを表示するImageViewなら…
 				case R.id.imSex:
-					//ImageViewにキャスト。
+					// ImageViewにキャスト。
 					ImageView imPhoneType = (ImageView) view;
-					//表示データを整数型にキャスト。
+					// 表示データを整数型にキャスト。
 					int sex = (Integer) data;
-					//表示データに応じて処理を分岐。
+					// 表示データに応じて処理を分岐。
 					switch(sex) {
-						//女性なら…
+						// 女性なら…
 						case 0:
-							//女性アイコンをセット。
+							// 女性アイコンをセット。
 							imPhoneType.setImageResource(R.drawable.ic_female);
 							break;
-						//男性なら…
+						// 男性なら…
 						case 1:
-							//男性アイコンをセット。
+							// 男性アイコンをセット。
 							imPhoneType.setImageResource(R.drawable.ic_male);
 							break;
 					}

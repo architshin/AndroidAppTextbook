@@ -221,6 +221,24 @@ public class MainActivity extends AppCompatActivity {
 		menuList.add(menu);
 
 		menu = new HashMap<>();
+		menu.put("name", "回鍋肉定食");
+		menu.put("price", 750);
+		menu.put("desc", "ピリ辛回鍋肉にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "麻婆豆腐定食");
+		menu.put("price", 800);
+		menu.put("desc", "本格四川風麻婆豆腐にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "青椒肉絲定食");
+		menu.put("price", 900);
+		menu.put("desc", "ピーマンの香り豊かな青椒肉絲にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
 		menu.put("name", "焼き魚定食");
 		menu.put("price", 850);
 		menu.put("desc", "鰆の塩焼きにサラダ、ご飯とお味噌汁が付きます。");

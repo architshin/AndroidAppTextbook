@@ -27,13 +27,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * コンストラクタ。
 	 */
 	public DatabaseHelper(Context context) {
-		//親クラスのコンストラクタの呼び出し。
+		// 親クラスのコンストラクタの呼び出し。
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		//テーブル作成用SQL文字列の作成。
+		// テーブル作成用SQL文字列の作成。
 		StringBuilder sb = new StringBuilder();
 		sb.append("CREATE TABLE cocktailmemos (");
 		sb.append("_id INTEGER PRIMARY KEY,");
@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		sb.append(");");
 		String sql = sb.toString();
 
-		//SQLの実行。
+		// SQLの実行。
 		db.execSQL(sql);
 	}
 

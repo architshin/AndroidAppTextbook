@@ -22,13 +22,13 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		//Intentオブジェクトを取得。
+		// Intentオブジェクトを取得。
 		Intent intent = getIntent();
-		//通知のタップからの引き継ぎデータを取得。
+		// 通知のタップからの引き継ぎデータを取得。
 		boolean fromNotification = intent.getBooleanExtra("fromNotification", false);
-		//引き継ぎデータが存在、つまり通知のタップからならば…
+		// 引き継ぎデータが存在、つまり通知のタップからならば…
 		if(fromNotification) {
-			//再生ボタンをタップ不可に、停止ボタンをタップ可に変更。
+			// 再生ボタンをタップ不可に、停止ボタンをタップ可に変更。
 			Button btPlay = findViewById(R.id.btPlay);
 			Button btStop = findViewById(R.id.btStop);
 			btPlay.setEnabled(false);
@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
 	 * @param view 画面部品
 	 */
 	public void onPlayButtonClick(View view) {
-		//インテントオブジェクトを生成。
+		// インテントオブジェクトを生成。
 		Intent intent = new Intent(MainActivity.this, SoundManageService.class);
-		//サービスを起動。
+		// サービスを起動。
 		startService(intent);
-		//再生ボタンをタップ不可に、停止ボタンをタップ可に変更。
+		// 再生ボタンをタップ不可に、停止ボタンをタップ可に変更。
 		Button btPlay = findViewById(R.id.btPlay);
 		Button btStop = findViewById(R.id.btStop);
 		btPlay.setEnabled(false);
@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
 	 * @param view 画面部品
 	 */
 	public void onStopButtonClick(View view) {
-		//インテントオブジェクトを生成。
+		// インテントオブジェクトを生成。
 		Intent intent = new Intent(MainActivity.this, SoundManageService.class);
-		//サービスを停止。
+		// サービスを停止。
 		stopService(intent);
-		//再生ボタンをタップ可に、停止ボタンをタップ不可に変更。
+		// 再生ボタンをタップ可に、停止ボタンをタップ不可に変更。
 		Button btPlay = findViewById(R.id.btPlay);
 		Button btStop = findViewById(R.id.btStop);
 		btPlay.setEnabled(true);

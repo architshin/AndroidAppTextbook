@@ -54,24 +54,24 @@ public class MainActivity extends AppCompatActivity {
 			Log.e("MediaSample", "メディアプレーヤー準備時の例外発生", ex);
 		}
 
-		//スイッチを取得。
+		// スイッチを取得。
 		SwitchMaterial loopSwitch = findViewById(R.id.swLoop);
-		//スイッチにリスナを設定。
+		// スイッチにリスナを設定。
 		loopSwitch.setOnCheckedChangeListener(new LoopSwitchChangedListener());
 	}
 
 	@Override
 	protected void onDestroy() {
-		//プレーヤーが再生中なら…
+		// プレーヤーが再生中なら…
 		if(_player.isPlaying()) {
-			//プレーヤーを停止。
+			// プレーヤーを停止。
 			_player.stop();
 		}
-		//プレーヤーを解放。
+		// プレーヤーを解放。
 		_player.release();
-		//プレーヤー用フィールドをnullに。
+		// プレーヤー用フィールドをnullに。
 		_player = null;
-		//親クラスのメソッド呼び出し。
+		// 親クラスのメソッド呼び出し。
 		super.onDestroy();
 	}
 
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 	 * @param view 画面部品
 	 */
 	public void onBackButtonClick(View view) {
-		//再生位置を先頭に変更。
+		// 再生位置を先頭に変更。
 		_player.seekTo(0);
 	}
 
@@ -115,13 +115,13 @@ public class MainActivity extends AppCompatActivity {
 	 * @param view 画面部品
 	 */
 	public void onForwardButtonClick(View view) {
-		//現在再生中のメディファイルの長さを取得。
+		// 現在再生中のメディファイルの長さを取得。
 		int duration = _player.getDuration();
-		//再生位置を終端に変更。
+		// 再生位置を終端に変更。
 		_player.seekTo(duration);
-		//再生中でないなら…
+		// 再生中でないなら…
 		if(!_player.isPlaying()) {
-			//再生を開始。
+			// 再生を開始。
 			_player.start();
 		}
 	}
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 	private class PlayerCompletionListener implements MediaPlayer.OnCompletionListener {
 		@Override
 		public void onCompletion(MediaPlayer mp) {
-			//ループ設定がされていないならば…
+			// ループ設定がされていないならば…
 			if(!_player.isLooping()) {
 				// 再生ボタンのラベルを「再生」に設定。
 				Button btPlay = findViewById(R.id.btPlay);
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 	private class LoopSwitchChangedListener implements CompoundButton.OnCheckedChangeListener {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-			//ループするかどうかを設定。
+			// ループするかどうかを設定。
 			_player.setLooping(isChecked);
 		}
 	}

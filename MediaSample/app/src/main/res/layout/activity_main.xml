@@ -51,5 +51,5 @@
 		android:id="@+id/swLoop"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/tv_loop"/>
+		android:text="@string/sw_loop"/>
 </LinearLayout>
