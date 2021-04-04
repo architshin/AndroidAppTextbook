@@ -1,0 +1,8 @@
+<resources>
+	<string name="app_name">アクションバー</string>
+	<string name="menu_delete">削除</string>
+	<string name="menu_fonttype_serif">明朝体</string>
+	<string name="menu_fonttype_sunsserif">ゴシック体</string>
+	<string name="menu_fonttype_monospace">等幅</string>
+	<string name="tv_speech">我々は一人の英雄を失った。\nこれは敗北を意味するのか?\n否!\n始まりなのだ!</string>
+</resources>
