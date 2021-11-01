@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 			// カメラアプリからの戻りでかつ撮影成功の場合
 			if(result.getResultCode() == RESULT_OK) {
 				// 撮影された画像のビットマップデータを取得。
+//				Intent data = result.getData();
 //				Bitmap bitmap = data.getParcelableExtra("data");
 				// 画像を表示するImageViewを取得。
 				ImageView ivCamera = findViewById(R.id.ivCamera);
