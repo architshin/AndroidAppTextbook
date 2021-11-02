@@ -1,5 +1,9 @@
 package com.websarva.wings.android.cameraintentsample;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
@@ -14,7 +18,6 @@ import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 /**
  * 『Androidアプリ開発の教科書』
@@ -31,27 +34,15 @@ public class MainActivity extends AppCompatActivity {
 	 */
 	private Uri _imageUri;
 
+	/**
+	 * Cameraアクティビティを起動するためのランチャーオブジェクト。
+	 */
+	ActivityResultLauncher<Intent> _cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallbackFromCamera());
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	}
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// 親クラスの同名メソッドの呼び出し。
-		super.onActivityResult(requestCode, resultCode, data);
-		// カメラアプリからの戻りでかつ撮影成功の場合
-		if(requestCode == 200 && resultCode == RESULT_OK) {
-			// 撮影された画像のビットマップデータを取得。
-//			Bitmap bitmap = data.getParcelableExtra("data");
-			// 画像を表示するImageViewを取得。
-			ImageView ivCamera = findViewById(R.id.ivCamera);
-			// 撮影された画像をImageViewに設定。
-//			ivCamera.setImageBitmap(bitmap);
-			// フィールドの画像URIをImageViewに設定。
-			ivCamera.setImageURI(_imageUri);
-		}
 	}
 
 	/**
@@ -83,6 +74,27 @@ public class MainActivity extends AppCompatActivity {
 		// Extra情報として_imageUriを設定。
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, _imageUri);
 		// アクティビティを起動。
-		startActivityForResult(intent, 200);
+		_cameraLauncher.launch(intent);
+	}
+
+	/**
+	 * Cameraアクティビティから戻ってきたときの処理が記述されたコールバッククラス。
+	 */
+	private class ActivityResultCallbackFromCamera implements ActivityResultCallback<ActivityResult> {
+		@Override
+		public void onActivityResult(ActivityResult result) {
+			// カメラアプリからの戻りでかつ撮影成功の場合
+			if(result.getResultCode() == RESULT_OK) {
+				// 撮影された画像のビットマップデータを取得。
+//				Intent data = result.getData();
+//				Bitmap bitmap = data.getParcelableExtra("data");
+				// 画像を表示するImageViewを取得。
+				ImageView ivCamera = findViewById(R.id.ivCamera);
+				// 撮影された画像をImageViewに設定。
+//				ivCamera.setImageBitmap(bitmap);
+				// フィールドの画像URIをImageViewに設定。
+				ivCamera.setImageURI(_imageUri);
+			}
+		}
 	}
 }
