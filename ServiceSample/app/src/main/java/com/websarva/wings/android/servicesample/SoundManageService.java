@@ -89,8 +89,6 @@ public class SoundManageService extends Service {
 		}
 		// プレーヤーを解放。
 		_player.release();
-		// プレーヤー用フィールドをnullに。
-		_player = null;
 	}
 
 	/**
@@ -116,12 +114,12 @@ public class SoundManageService extends Service {
 			// 起動先アクティビティに引き継ぎデータを格納。
 			intent.putExtra("fromNotification", true);
 			// PendingIntentオブジェクトを取得。
-			PendingIntent stopServiceIntent = PendingIntent.getActivity(SoundManageService.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+			PendingIntent stopServiceIntent = PendingIntent.getActivity(SoundManageService.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
 			// PendingIntentオブジェクトをビルダーに設定。
 			builder.setContentIntent(stopServiceIntent);
 			// タップされた通知メッセージを自動的に消去するように設定。
 			builder.setAutoCancel(true);
-
 			// BuilderからNotificationオブジェクトを生成。
 			Notification notification = builder.build();
 
@@ -150,7 +148,6 @@ public class SoundManageService extends Service {
 			NotificationManagerCompat manager = NotificationManagerCompat.from(SoundManageService.this);
 			// 通知。
 			manager.notify(100, notification);
-
 			// 自分自身を終了。
 			stopSelf();
 		}
