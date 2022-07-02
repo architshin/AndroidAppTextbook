@@ -1,4 +1,4 @@
-package android.wings.websarva.com.implicitintentsample;
+package com.websarva.wings.android.implicitintentsample;
 
 import org.junit.Test;
 

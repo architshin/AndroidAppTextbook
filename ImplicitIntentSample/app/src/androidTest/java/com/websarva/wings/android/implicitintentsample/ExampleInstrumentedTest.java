@@ -1,4 +1,4 @@
-package android.wings.websarva.com.implicitintentsample;
+package com.websarva.wings.android.implicitintentsample;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
 	public void useAppContext() {
 		// Context of the app under test.
 		Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-		assertEquals("android.wings.websarva.com.implicitintentsample", appContext.getPackageName());
+		assertEquals("com.websarva.wings.android.implicitintentsample", appContext.getPackageName());
 	}
 }

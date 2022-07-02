@@ -1,13 +1,9 @@
-package android.wings.websarva.com.implicitintentsample;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+package com.websarva.wings.android.implicitintentsample;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
@@ -21,9 +17,14 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 /**
  * 『Androidアプリ開発の教科書』
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 		// 位置情報の最短更新間隔を設定。
 		_locationRequest.setFastestInterval(1000);
 		// 位置情報の取得精度を設定。
-		_locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+		_locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
 		// 位置情報が変更された時の処理を行うコールバックオブジェクトを生成。
 		_onUpdateLocation = new OnUpdateLocation();
 	}
@@ -78,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
 		// ACCESS_FINE_LOCATIONの許可が下りていないなら…
 		if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			// ACCESS_FINE_LOCATIONの許可を求めるダイアログを表示。その際、リクエストコードを1000に設定。
@@ -92,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	@Override
-	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 		// ACCESS_FINE_LOCATIONに対するパーミションダイアログでかつ許可を選択したなら…
 		if(requestCode == 1000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 			// 再度ACCESS_FINE_LOCATIONの許可が下りていないかどうかのチェックをし、降りていないなら処理を中止。
@@ -156,22 +157,20 @@ public class MainActivity extends AppCompatActivity {
 	 */
 	private class OnUpdateLocation extends LocationCallback {
 		@Override
-		public void onLocationResult(LocationResult locationResult) {
-			if(locationResult != null) {
-				// 直近の位置情報を取得。
-				Location location = locationResult.getLastLocation();
-				if(location != null) {
-					// locationオブジェクトから緯度を取得。
-					_latitude = location.getLatitude();
-					// locationオブジェクトから経度を取得。
-					_longitude = location.getLongitude();
-					// 取得した緯度をTextViewに表示。
-					TextView tvLatitude = findViewById(R.id.tvLatitude);
-					tvLatitude.setText(Double.toString(_latitude));
-					// 取得した経度をTextViewに表示。
-					TextView tvLongitude = findViewById(R.id.tvLongitude);
-					tvLongitude.setText(Double.toString(_longitude));
-				}
+		public void onLocationResult(@NonNull LocationResult locationResult) {
+			// 直近の位置情報を取得。
+			Location location = locationResult.getLastLocation();
+			if(location != null) {
+				// locationオブジェクトから緯度を取得。
+				_latitude = location.getLatitude();
+				// locationオブジェクトから経度を取得。
+				_longitude = location.getLongitude();
+				// 取得した緯度をTextViewに表示。
+				TextView tvLatitude = findViewById(R.id.tvLatitude);
+				tvLatitude.setText(Double.toString(_latitude));
+				// 取得した経度をTextViewに表示。
+				TextView tvLongitude = findViewById(R.id.tvLongitude);
+				tvLongitude.setText(Double.toString(_longitude));
 			}
 		}
 	}
