@@ -30,14 +30,13 @@ import java.util.Date;
  */
 public class MainActivity extends AppCompatActivity {
 	/**
-	 * 保存された画像のURI。
-	 */
-	private Uri _imageUri;
-
-	/**
 	 * Cameraアクティビティを起動するためのランチャーオブジェクト。
 	 */
 	ActivityResultLauncher<Intent> _cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallbackFromCamera());
+	/**
+	 * 保存された画像のURI。
+	 */
+	private Uri _imageUri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 	private class ActivityResultCallbackFromCamera implements ActivityResultCallback<ActivityResult> {
 		@Override
 		public void onActivityResult(ActivityResult result) {
-			// カメラアプリからの戻りでかつ撮影成功の場合
+			// カメラアプリで撮影成功の場合
 			if(result.getResultCode() == RESULT_OK) {
 				// 撮影された画像のビットマップデータを取得。
 //				Intent data = result.getData();
