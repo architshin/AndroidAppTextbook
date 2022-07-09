@@ -54,25 +54,25 @@ public class MainActivity extends AppCompatActivity {
 		toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY);
 
 		// RecyclerViewを取得。
-		RecyclerView lvMenu = findViewById(R.id.lvMenu);
+		RecyclerView rvMenu = findViewById(R.id.rvMenu);
 		// LinearLayoutManagerオブジェクトを生成。
 		LinearLayoutManager layout = new LinearLayoutManager(MainActivity.this);
 		// 以下は他の2種のレイアウトマネージャー。
 //		GridLayoutManager layout = new GridLayoutManager(MainActivity.this, 5);
 //		StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL);
 		// RecyclerViewにレイアウトマネージャーとしてLinearLayoutManagerを設定。
-		lvMenu.setLayoutManager(layout);
+		rvMenu.setLayoutManager(layout);
 		// 定食メニューリストデータを生成。
 		List<Map<String, Object>> menuList = createTeishokuList();
 		// アダプタオブジェクトを生成。
 		RecyclerListAdapter adapter = new RecyclerListAdapter(menuList);
 		// RecyclerViewにアダプタオブジェクトを設定。
-		lvMenu.setAdapter(adapter);
+		rvMenu.setAdapter(adapter);
 
 		// 区切り専用のオブジェクトを生成。
 		DividerItemDecoration decorator = new DividerItemDecoration(MainActivity.this, layout.getOrientation());
 		// RecyclerViewに区切り線オブジェクトを設定。
-		lvMenu.addItemDecoration(decorator);
+		rvMenu.addItemDecoration(decorator);
 	}
 
 	/**
