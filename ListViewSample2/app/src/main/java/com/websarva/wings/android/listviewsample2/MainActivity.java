@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 		menuList.add("回鍋肉定食");
 		menuList.add("麻婆豆腐定食");
 		menuList.add("青椒肉絲定食");
+		menuList.add("八宝菜定食");
+		menuList.add("酢豚定食");
 		menuList.add("焼き魚定食");
 		menuList.add("焼肉定食");
 		// アダプタオブジェクトを生成。

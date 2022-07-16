@@ -5,9 +5,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-
 
 /**
  * 『Androidアプリ開発の教科書』
@@ -19,8 +20,9 @@ import androidx.fragment.app.DialogFragment;
  * @author Shinzo SAITO
  */
 public class OrderConfirmDialogFragment extends DialogFragment {
+	@NonNull
 	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
+	public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 		//ダイアログビルダを生成。
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		//ダイアログのタイトルを設定。
