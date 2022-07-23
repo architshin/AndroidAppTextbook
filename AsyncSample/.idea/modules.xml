@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AsyncSample.iml" filepath="$PROJECT_DIR$/.idea/modules/AsyncSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AsyncSample.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AsyncSample.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AsyncSample.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AsyncSample.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AsyncSample.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AsyncSample.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AsyncSample.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AsyncSample.app.unitTest.iml" />
     </modules>
   </component>
 </project>
