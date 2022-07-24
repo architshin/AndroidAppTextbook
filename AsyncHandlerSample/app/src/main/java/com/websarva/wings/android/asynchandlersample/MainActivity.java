@@ -303,6 +303,9 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * 非同期でお天気情報を取得した後にUIスレッドでその情報を表示するためのクラス。
+	 */
 	private class WeatherInfoReceivePostExecutor implements Runnable {
 		/**
 		 * 取得した天気情報JSON文字列。
