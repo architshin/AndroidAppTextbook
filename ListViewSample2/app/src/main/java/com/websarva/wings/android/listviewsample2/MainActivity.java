@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 		menuList.add("青椒肉絲定食");
 		menuList.add("八宝菜定食");
 		menuList.add("酢豚定食");
+		menuList.add("豚の角煮定食");
+		menuList.add("焼き鳥定食");
 		menuList.add("焼き魚定食");
 		menuList.add("焼肉定食");
 		// アダプタオブジェクトを生成。
