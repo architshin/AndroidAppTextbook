@@ -157,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
 			// 第2画面に送るデータを格納。
 			intent.putExtra("menuName", menuName);
 			intent.putExtra("menuPrice", menuPrice);
+//			Bundle bundle = new Bundle();
+//			bundle.putString("menuName", menuName);
+//			bundle.putString("menuPrice", menuPrice);
+//			intent.putExtras(bundle);
 			// 第2画面の起動。
 			startActivity(intent);
 		}
