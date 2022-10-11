@@ -98,6 +98,26 @@ public class MainActivity extends AppCompatActivity {
 		menuList.add(menu);
 
 		menu = new HashMap<>();
+		menu.put("name", "八宝菜定食");
+		menu.put("price", "800円");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "酢豚定食");
+		menu.put("price", "850円");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "豚の角煮定食");
+		menu.put("price", "850円");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "焼き鳥定食");
+		menu.put("price", "900円");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
 		menu.put("name", "焼き魚定食");
 		menu.put("price", "850円");
 		menuList.add(menu);
