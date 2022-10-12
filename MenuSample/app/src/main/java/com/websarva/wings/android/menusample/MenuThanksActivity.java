@@ -64,4 +64,12 @@ public class MenuThanksActivity extends AppCompatActivity {
 		}
 		return returnVal;
 	}
+
+	/**
+	 * 戻るボタンをタップした時の処理。
+	 * @param view 画面部品。
+	 */
+//	public void onBackButtonClick(View view) {
+//		finish();
+//	}
 }

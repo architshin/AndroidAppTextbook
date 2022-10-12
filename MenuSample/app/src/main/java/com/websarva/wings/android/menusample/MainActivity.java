@@ -239,6 +239,30 @@ public class MainActivity extends AppCompatActivity {
 		menuList.add(menu);
 
 		menu = new HashMap<>();
+		menu.put("name", "八宝菜定食");
+		menu.put("price", 800);
+		menu.put("desc", "具沢山野菜と魚介のスープによるあんが絶妙な八宝菜にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "酢豚定食");
+		menu.put("price", 850);
+		menu.put("desc", "ごろっとお肉が目立つ酢豚にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "豚の角煮定食");
+		menu.put("price", 850);
+		menu.put("desc", "とろとろに煮込んだ豚の角煮にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "焼き鳥定食");
+		menu.put("price", 900);
+		menu.put("desc", "柚子胡椒香る焼き鳥にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
 		menu.put("name", "焼き魚定食");
 		menu.put("price", 850);
 		menu.put("desc", "鰆の塩焼きにサラダ、ご飯とお味噌汁が付きます。");
@@ -338,6 +362,18 @@ public class MainActivity extends AppCompatActivity {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			// タップされた行のデータを取得。
 			Map<String, Object> item = (Map<String, Object>) parent.getItemAtPosition(position);
+//			// 定食名と金額を取得。Mapの値部分がObject型なのでキャストが必要。
+//			String menuName = (String) item.get("name");
+//			Integer menuPrice = (Integer) item.get("price");
+//
+//			// インテントオブジェクトを生成。
+//			Intent intent = new Intent(MainActivity.this, MenuThanksActivity.class);
+//			// 第2画面に送るデータを格納。
+//			intent.putExtra("menuName", menuName);
+//			// MenuThanksActivityでのデータ受け取りと合わせるために、金額にここで「円」を追加する。
+//			intent.putExtra("menuPrice", menuPrice + "円");
+//			// 第2画面の起動。
+//			startActivity(intent);
 			// 注文処理。
 			order(item);
 		}
