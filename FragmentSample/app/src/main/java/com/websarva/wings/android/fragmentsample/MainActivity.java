@@ -1,8 +1,8 @@
 package com.websarva.wings.android.fragmentsample;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
 
 /**
  * 『Androidアプリ開発の教科書』
