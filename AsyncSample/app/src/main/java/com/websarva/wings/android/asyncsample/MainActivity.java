@@ -1,5 +1,9 @@
 package com.websarva.wings.android.asyncsample;
 
+import androidx.annotation.UiThread;
+import androidx.annotation.WorkerThread;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,10 +33,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-
-import androidx.annotation.UiThread;
-import androidx.annotation.WorkerThread;
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 『Androidアプリ開発の教科書』
