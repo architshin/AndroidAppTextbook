@@ -86,7 +86,13 @@ public class MainActivity extends AppCompatActivity {
 			if(result.getResultCode() == RESULT_OK) {
 				// 撮影された画像のビットマップデータを取得。
 //				Intent data = result.getData();
-//				Bitmap bitmap = data.getParcelableExtra("data");
+//				Bitmap bitmap;
+//				if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+//					bitmap = data.getParcelableExtra("data", Bitmap.class);
+//				}
+//				else {
+//					bitmap = data.getParcelableExtra("data");
+//				}
 				// 画像を表示するImageViewを取得。
 				ImageView ivCamera = findViewById(R.id.ivCamera);
 				// 撮影された画像をImageViewに設定。

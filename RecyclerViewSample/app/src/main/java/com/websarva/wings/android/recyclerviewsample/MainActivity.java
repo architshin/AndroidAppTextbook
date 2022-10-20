@@ -160,6 +160,30 @@ public class MainActivity extends AppCompatActivity {
 		menuList.add(menu);
 
 		menu = new HashMap<>();
+		menu.put("name", "八宝菜定食");
+		menu.put("price", 800);
+		menu.put("desc", "具沢山野菜と魚介のスープによるあんが絶妙な八宝菜にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "酢豚定食");
+		menu.put("price", 850);
+		menu.put("desc", "ごろっとお肉が目立つ酢豚にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "豚の角煮定食");
+		menu.put("price", 850);
+		menu.put("desc", "とろとろに煮込んだ豚の角煮にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "焼き鳥定食");
+		menu.put("price", 900);
+		menu.put("desc", "柚子胡椒香る焼き鳥にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
 		menu.put("name", "焼き魚定食");
 		menu.put("price", 850);
 		menu.put("desc", "鰆の塩焼きにサラダ、ご飯とお味噌汁が付きます。");

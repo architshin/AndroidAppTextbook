@@ -1,5 +1,7 @@
 package com.websarva.wings.android.webviewsample;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -13,8 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 	private List<Map<String, String>> _list;

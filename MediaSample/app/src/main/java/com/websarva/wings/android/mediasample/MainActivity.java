@@ -1,5 +1,7 @@
 package com.websarva.wings.android.mediasample;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,8 +13,6 @@ import android.widget.CompoundButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.io.IOException;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 『Androidアプリ開発の教科書』
