@@ -14,15 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 『Androidアプリ開発の教科書』
- * 第7章 Note
- * ViewBinderサンプル
- *
- * 名前リスト画面のアクティビティクラス。
- *
- * @author Shinzo SAITO
- */
 public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
