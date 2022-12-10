@@ -27,6 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -325,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
 		 * @throws IOException 変換に失敗した時に発生。
 		 */
 		private String is2String(InputStream is) throws IOException {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 			StringBuffer sb = new StringBuffer();
 			char[] b = new char[1024];
 			int line;
