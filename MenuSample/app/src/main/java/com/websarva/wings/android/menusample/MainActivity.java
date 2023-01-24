@@ -51,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		//画面部品ListViewを取得し、フィールドに格納。
+		// 画面部品ListViewを取得し、フィールドに格納。
 		_lvMenu = findViewById(R.id.lvMenu);
-		//SimpleAdapterで使用する定食メニューListオブジェクトをprivateメソッドを利用して用意し、フィールドに格納。
+		// SimpleAdapterで使用する定食メニューListオブジェクトをprivateメソッドを利用して用意し、フィールドに格納。
 		_menuList = createTeishokuList();
-		//SimpleAdapterを生成。
+		// SimpleAdapterを生成。
 		SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, _menuList, R.layout.row, FROM, TO);
-		//アダプタの登録。
+		// アダプタの登録。
 		_lvMenu.setAdapter(adapter);
-		//リストタップのリスナクラス登録。
+		// リストタップのリスナクラス登録。
 		_lvMenu.setOnItemClickListener(new ListItemClickListener());
 
 		//コンテキストメニューをリストビューに登録。
@@ -68,86 +68,86 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//メニューインフレーターの取得。
+		// メニューインフレーターの取得。
 		MenuInflater inflater = getMenuInflater();
-		//オプションメニュー用xmlファイルをインフレイト。
+		// オプションメニュー用xmlファイルをインフレイト。
 		inflater.inflate(R.menu.menu_options_menu_list, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		//戻り値用の変数を初期値trueで用意。
+		// 戻り値用の変数を初期値trueで用意。
 		boolean returnVal = true;
-		//選択されたメニューのIDを取得。
+		// 選択されたメニューのIDを取得。
 		int itemId = item.getItemId();
-		//IDのR値による処理の分岐。
+		// IDのR値による処理の分岐。
 		switch(itemId) {
-			//定食メニューが選択された場合の処理。
+			// 定食メニューが選択された場合の処理。
 			case R.id.menuListOptionTeishoku:
-				//定食メニューリストデータの生成。
+				// 定食メニューリストデータの生成。
 				_menuList = createTeishokuList();
 				break;
-			//カレーメニューが選択された場合の処理。
+			// カレーメニューが選択された場合の処理。
 			case R.id.menuListOptionCurry:
-				//カレーメニューリストデータの生成。
+				// カレーメニューリストデータの生成。
 				_menuList = createCurryList();
 				break;
-			//それ以外…
+			// それ以外…
 			default:
-				//親クラスの同名メソッドを呼び出し、その戻り値をreturnValとする。
+				// 親クラスの同名メソッドを呼び出し、その戻り値をreturnValとする。
 				returnVal = super.onOptionsItemSelected(item);
 				break;
 		}
-		//SimpleAdapterを選択されたメニューデータで生成。
+		// SimpleAdapterを選択されたメニューデータで生成。
 		SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, _menuList, R.layout.row, FROM, TO);
-		//アダプタの登録。
+		// アダプタの登録。
 		_lvMenu.setAdapter(adapter);
 		return returnVal;
 	}
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
-		//親クラスの同名メソッドの呼び出し。
+		// 親クラスの同名メソッドの呼び出し。
 		super.onCreateContextMenu(menu, view, menuInfo);
-		//メニューインフレーターの取得。
+		// メニューインフレーターの取得。
 		MenuInflater inflater = getMenuInflater();
-		//コンテキストメニュー用xmlファイルをインフレイト。
+		// コンテキストメニュー用xmlファイルをインフレイト。
 		inflater.inflate(R.menu.menu_context_menu_list, menu);
-		//コンテキストメニューのヘッダタイトルを設定。
+		// コンテキストメニューのヘッダタイトルを設定。
 		menu.setHeaderTitle(R.string.menu_list_context_header);
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		//戻り値用の変数を初期値trueで用意。
+		// 戻り値用の変数を初期値trueで用意。
 		boolean returnVal = true;
-		//長押しされたビューに関する情報が格納されたオブジェクトを取得。
+		// 長押しされたビューに関する情報が格納されたオブジェクトを取得。
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-		//長押しされたリストのポジションを取得。
+		// 長押しされたリストのポジションを取得。
 		int listPosition = info.position;
-		//ポジションから長押しされたメニュー情報Mapオブジェクトを取得。
+		// ポジションから長押しされたメニュー情報Mapオブジェクトを取得。
 		Map<String, Object> menu = _menuList.get(listPosition);
 
-		//選択されたメニューのIDを取得。
+		// 選択されたメニューのIDを取得。
 		int itemId = item.getItemId();
-		//IDのR値による処理の分岐。
+		// IDのR値による処理の分岐。
 		switch(itemId) {
-			//［説明を表示］メニューが選択された時の処理。
+			// ［説明を表示］メニューが選択された時の処理。
 			case R.id.menuListContextDesc:
-				//メニューの説明文字列を取得。
+				// メニューの説明文字列を取得。
 				String desc = (String) menu.get("desc");
-				//トーストを表示。
+				// トーストを表示。
 				Toast.makeText(MainActivity.this, desc, Toast.LENGTH_LONG).show();
 				break;
-			//［ご注文］メニューが選択された時の処理。
+			// ［ご注文］メニューが選択された時の処理。
 			case R.id.menuListContextOrder:
-				//注文処理。
+				// 注文処理。
 				order(menu);
 				break;
-			//それ以外…
+			// それ以外…
 			default:
-				//親クラスの同名メソッドを呼び出し、その戻り値をreturnValとする。
+				// 親クラスの同名メソッドを呼び出し、その戻り値をreturnValとする。
 				returnVal = super.onContextItemSelected(item);
 				break;
 		}
@@ -160,24 +160,24 @@ public class MainActivity extends AppCompatActivity {
 	 * @return 生成された定食リストデータ。
 	 */
 	private List<Map<String, Object>> createTeishokuList() {
-		//定食メニューリスト用のListオブジェクトを用意。
+		// 定食メニューリスト用のListオブジェクトを用意。
 		List<Map<String, Object>> menuList = new ArrayList<>();
 
-		//「から揚げ定食」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
+		// 「から揚げ定食」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
 		Map<String, Object> menu = new HashMap<>();
 		menu.put("name", "から揚げ定食");
 		menu.put("price", 800);
 		menu.put("desc", "若鳥のから揚げにサラダ、ご飯とお味噌汁が付きます。");
 		menuList.add(menu);
 
-		//「ハンバーグ定食」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
+		// 「ハンバーグ定食」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
 		menu = new HashMap<>();
 		menu.put("name", "ハンバーグ定食");
 		menu.put("price", 850);
 		menu.put("desc", "手ごねハンバーグにサラダ、ご飯とお味噌汁が付きます。");
 		menuList.add(menu);
 
-		//以下データ登録の繰り返し。
+		// 以下データ登録の繰り返し。
 		menu = new HashMap<>();
 		menu.put("name", "生姜焼き定食");
 		menu.put("price", 850);
@@ -239,6 +239,30 @@ public class MainActivity extends AppCompatActivity {
 		menuList.add(menu);
 
 		menu = new HashMap<>();
+		menu.put("name", "八宝菜定食");
+		menu.put("price", 800);
+		menu.put("desc", "具沢山野菜と魚介のスープによるあんが絶妙な八宝菜にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "酢豚定食");
+		menu.put("price", 850);
+		menu.put("desc", "ごろっとお肉が目立つ酢豚にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "豚の角煮定食");
+		menu.put("price", 850);
+		menu.put("desc", "とろとろに煮込んだ豚の角煮にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "焼き鳥定食");
+		menu.put("price", 900);
+		menu.put("desc", "柚子胡椒香る焼き鳥にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
 		menu.put("name", "焼き魚定食");
 		menu.put("price", 850);
 		menu.put("desc", "鰆の塩焼きにサラダ、ご飯とお味噌汁が付きます。");
@@ -259,24 +283,24 @@ public class MainActivity extends AppCompatActivity {
 	 * @return 生成されたカレーリストデータ。
 	 */
 	private List<Map<String, Object>> createCurryList() {
-		//カレーメニューリスト用のListオブジェクトを用意。
+		// カレーメニューリスト用のListオブジェクトを用意。
 		List<Map<String, Object>> menuList = new ArrayList<>();
 
-		//「ビーフカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
+		// 「ビーフカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
 		Map<String, Object> menu = new HashMap<>();
 		menu.put("name", "ビーフカレー");
 		menu.put("price", 520);
 		menu.put("desc", "特選スパイスをきかせた国産ビーフ100%のカレーです。");
 		menuList.add(menu);
 
-		//「ポークカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
+		// 「ポークカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
 		menu = new HashMap<>();
 		menu.put("name", "ポークカレー");
 		menu.put("price", 420);
 		menu.put("desc", "特選スパイスをきかせた国産ポーク100%のカレーです。");
 		menuList.add(menu);
 
-		//以下データ登録の繰り返し。
+		// 以下データ登録の繰り返し。
 		menu = new HashMap<>();
 		menu.put("name", "ハンバーグカレー");
 		menu.put("price", 620);
@@ -316,17 +340,17 @@ public class MainActivity extends AppCompatActivity {
 	 * @param menu 注文するメニューを表すMapオブジェクト。
 	 */
 	private void order(Map<String, Object> menu) {
-		//定食名と金額を取得。Mapの値部分がObject型なのでキャストが必要。
+		// 定食名と金額を取得。Mapの値部分がObject型なのでキャストが必要。
 		String menuName = (String) menu.get("name");
 		Integer menuPrice = (Integer) menu.get("price");
 
-		//インテントオブジェクトを生成。
+		// インテントオブジェクトを生成。
 		Intent intent = new Intent(MainActivity.this, MenuThanksActivity.class);
-		//第2画面に送るデータを格納。
+		// 第2画面に送るデータを格納。
 		intent.putExtra("menuName", menuName);
-		//MenuThanksActivityでのデータ受け取りと合わせるために、金額にここで「円」を追加する。
+		// MenuThanksActivityでのデータ受け取りと合わせるために、金額にここで「円」を追加する。
 		intent.putExtra("menuPrice", menuPrice + "円");
-		//第2画面の起動。
+		// 第2画面の起動。
 		startActivity(intent);
 	}
 
@@ -336,9 +360,21 @@ public class MainActivity extends AppCompatActivity {
 	private class ListItemClickListener implements AdapterView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			//タップされた行のデータを取得。
+			// タップされた行のデータを取得。
 			Map<String, Object> item = (Map<String, Object>) parent.getItemAtPosition(position);
-			//注文処理。
+//			// 定食名と金額を取得。Mapの値部分がObject型なのでキャストが必要。
+//			String menuName = (String) item.get("name");
+//			Integer menuPrice = (Integer) item.get("price");
+//
+//			// インテントオブジェクトを生成。
+//			Intent intent = new Intent(MainActivity.this, MenuThanksActivity.class);
+//			// 第2画面に送るデータを格納。
+//			intent.putExtra("menuName", menuName);
+//			// MenuThanksActivityでのデータ受け取りと合わせるために、金額にここで「円」を追加する。
+//			intent.putExtra("menuPrice", menuPrice + "円");
+//			// 第2画面の起動。
+//			startActivity(intent);
+			// 注文処理。
 			order(item);
 		}
 	}

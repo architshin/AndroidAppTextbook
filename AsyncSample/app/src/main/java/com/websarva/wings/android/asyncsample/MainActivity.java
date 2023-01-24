@@ -3,11 +3,8 @@ package com.websarva.wings.android.asyncsample;
 import androidx.annotation.UiThread;
 import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.HandlerCompat;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,12 +24,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * 『Androidアプリ開発の教科書』
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 	 * お天気APIにアクセスすするためのAPIキー。
 	 * ※※※※※この値は各自のものに書き換える!!※※※※※
 	 */
-	private static final String APP_ID = "";
+	private static final String APP_ID = "xxxxxxxxxxx";
 	/**
 	 * リストビューに表示させるリストデータ。
 	 */
@@ -124,21 +125,75 @@ public class MainActivity extends AppCompatActivity {
 	 */
 	@UiThread
 	private void receiveWeatherInfo(final String urlFull) {
-		Looper mainLooper = Looper.getMainLooper();
-		Handler handler = HandlerCompat.createAsync(mainLooper);
-		WeatherInfoBackgroundReceiver backgroundReceiver = new WeatherInfoBackgroundReceiver(handler, urlFull);
+		WeatherInfoBackgroundReceiver backgroundReceiver = new WeatherInfoBackgroundReceiver(urlFull);
 		ExecutorService executorService  = Executors.newSingleThreadExecutor();
-		executorService.submit(backgroundReceiver);
+		Future<String> future = executorService.submit(backgroundReceiver);
+		String result = "";
+		try {
+			result = future.get();
+		}
+		catch(ExecutionException ex) {
+			Log.w(DEBUG_TAG, "非同期処理結果の取得で例外発生: ", ex);
+		}
+		catch(InterruptedException ex) {
+			Log.w(DEBUG_TAG, "非同期処理結果の取得で例外発生: ", ex);
+		}
+		showWeatherInfo(result);
+	}
+
+	/**
+	 * 取得したお天気情報JSON文字列を解析の上、画面に表示させるメソッド。
+	 *
+	 * @param result 取得したお天気情報JSON文字列。
+	 */
+	@UiThread
+	private void showWeatherInfo(String result) {
+		// 都市名。
+		String cityName = "";
+		// 天気。
+		String weather = "";
+		// 緯度
+		String latitude = "";
+		// 経度。
+		String longitude = "";
+		try {
+			// ルートJSONオブジェクトを生成。
+			JSONObject rootJSON = new JSONObject(result);
+			// 都市名文字列を取得。
+			cityName = rootJSON.getString("name");
+			// 緯度経度情報JSONオブジェクトを取得。
+			JSONObject coordJSON = rootJSON.getJSONObject("coord");
+			// 緯度情報文字列を取得。
+			latitude = coordJSON.getString("lat");
+			// 経度情報文字列を取得。
+			longitude = coordJSON.getString("lon");
+			// 天気情報JSON配列オブジェクトを取得。
+			JSONArray weatherJSONArray = rootJSON.getJSONArray("weather");
+			// 現在の天気情報JSONオブジェクトを取得。
+			JSONObject weatherJSON = weatherJSONArray.getJSONObject(0);
+			// 現在の天気情報文字列を取得。
+			weather = weatherJSON.getString("description");
+		}
+		catch(JSONException ex) {
+			Log.e(DEBUG_TAG, "JSON解析失敗", ex);
+		}
+
+		// 画面に表示する「〇〇の天気」文字列を生成。
+		String telop = cityName + "の天気";
+		// 天気の詳細情報を表示する文字列を生成。
+		String desc = "現在は" + weather + "です。\n緯度は" + latitude + "度で経度は" + longitude + "度です。";
+		// 天気情報を表示するTextViewを取得。
+		TextView tvWeatherTelop = findViewById(R.id.tvWeatherTelop);
+		TextView tvWeatherDesc = findViewById(R.id.tvWeatherDesc);
+		// 天気情報を表示。
+		tvWeatherTelop.setText(telop);
+		tvWeatherDesc.setText(desc);
 	}
 
 	/**
 	 * 非同期でお天気情報APIにアクセスするためのクラス。
 	 */
-	private class WeatherInfoBackgroundReceiver implements Runnable {
-		/**
-		 * ハンドラオブジェクト。
-		 */
-		private final Handler _handler;
+	private class WeatherInfoBackgroundReceiver implements Callable<String> {
 		/**
 		 * お天気情報を取得するURL。
 		 */
@@ -148,23 +203,21 @@ public class MainActivity extends AppCompatActivity {
 		 * コンストラクタ。
 		 * 非同期でお天気情報Web APIにアクセスするのに必要な情報を取得する。
 		 *
-		 * @param handler ハンドラオブジェクト。
 		 * @param urlFull お天気情報を取得するURL。
 		 */
-		public WeatherInfoBackgroundReceiver(Handler handler , String urlFull) {
-			_handler = handler;
+		public WeatherInfoBackgroundReceiver(String urlFull) {
 			_urlFull = urlFull;
 		}
 
 		@WorkerThread
 		@Override
-		public void run() {
+		public String call() {
+			// 天気情報サービスから取得したJSON文字列。天気情報が格納されている。
+			String result = "";
 			// HTTP接続を行うHttpURLConnectionオブジェクトを宣言。finallyで解放するためにtry外で宣言。
 			HttpURLConnection con = null;
 			// HTTP接続のレスポンスデータとして取得するInputStreamオブジェクトを宣言。同じくtry外で宣言。
 			InputStream is = null;
-			// 天気情報サービスから取得したJSON文字列。天気情報が格納されている。
-			String result = "";
 			try {
 				// URLオブジェクトを生成。
 				URL url = new URL(_urlFull);
@@ -208,8 +261,7 @@ public class MainActivity extends AppCompatActivity {
 					}
 				}
 			}
-			WeatherInfoPostExecutor postExecutor = new WeatherInfoPostExecutor(result);
-			_handler.post(postExecutor);
+			return result;
 		}
 
 		/**
@@ -220,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
 		 * @throws IOException 変換に失敗した時に発生。
 		 */
 		private String is2String(InputStream is) throws IOException {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 			StringBuffer sb = new StringBuffer();
 			char[] b = new char[1024];
 			int line;
@@ -228,70 +280,6 @@ public class MainActivity extends AppCompatActivity {
 				sb.append(b, 0, line);
 			}
 			return sb.toString();
-		}
-	}
-
-	/**
-	 * 非同期でお天気情報を取得した後にUIスレッドでその情報を表示するためのクラス。
-	 */
-	private class WeatherInfoPostExecutor implements Runnable {
-		/**
-		 * 取得したお天気情報JSON文字列。
-		 */
-		private final String _result;
-
-		/**
-		 * コンストラクタ。
-		 *
-		 * @param result Web APIから取得したお天気情報JSON文字列。
-		 */
-		public WeatherInfoPostExecutor(String result) {
-			_result = result;
-		}
-
-		@UiThread
-		@Override
-		public void run() {
-			// 都市名。
-			String cityName = "";
-			// 天気。
-			String weather = "";
-			// 緯度
-			String latitude = "";
-			// 経度。
-			String longitude = "";
-			try {
-				// ルートJSONオブジェクトを生成。
-				JSONObject rootJSON = new JSONObject(_result);
-				// 都市名文字列を取得。
-				cityName = rootJSON.getString("name");
-				// 緯度経度情報JSONオブジェクトを取得。
-				JSONObject coordJSON = rootJSON.getJSONObject("coord");
-				// 緯度情報文字列を取得。
-				latitude = coordJSON.getString("lat");
-				// 経度情報文字列を取得。
-				longitude = coordJSON.getString("lon");
-				// 天気情報JSON配列オブジェクトを取得。
-				JSONArray weatherJSONArray = rootJSON.getJSONArray("weather");
-				// 現在の天気情報JSONオブジェクトを取得。
-				JSONObject weatherJSON = weatherJSONArray.getJSONObject(0);
-				// 現在の天気情報文字列を取得。
-				weather = weatherJSON.getString("description");
-			}
-			catch(JSONException ex) {
-				Log.e(DEBUG_TAG, "JSON解析失敗", ex);
-			}
-
-			// 画面に表示する「〇〇の天気」文字列を生成。
-			String telop = cityName + "の天気";
-			// 天気の詳細情報を表示する文字列を生成。
-			String desc = "現在は" + weather + "です。\n緯度は" + latitude + "度で経度は" + longitude + "度です。";
-			// 天気情報を表示するTextViewを取得。
-			TextView tvWeatherTelop = findViewById(R.id.tvWeatherTelop);
-			TextView tvWeatherDesc = findViewById(R.id.tvWeatherDesc);
-			// 天気情報を表示。
-			tvWeatherTelop.setText(telop);
-			tvWeatherDesc.setText(desc);
 		}
 	}
 

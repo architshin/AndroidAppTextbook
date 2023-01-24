@@ -54,25 +54,25 @@ public class MainActivity extends AppCompatActivity {
 		toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY);
 
 		// RecyclerViewを取得。
-		RecyclerView lvMenu = findViewById(R.id.lvMenu);
+		RecyclerView rvMenu = findViewById(R.id.rvMenu);
 		// LinearLayoutManagerオブジェクトを生成。
 		LinearLayoutManager layout = new LinearLayoutManager(MainActivity.this);
 		// 以下は他の2種のレイアウトマネージャー。
 //		GridLayoutManager layout = new GridLayoutManager(MainActivity.this, 5);
 //		StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL);
 		// RecyclerViewにレイアウトマネージャーとしてLinearLayoutManagerを設定。
-		lvMenu.setLayoutManager(layout);
+		rvMenu.setLayoutManager(layout);
 		// 定食メニューリストデータを生成。
 		List<Map<String, Object>> menuList = createTeishokuList();
 		// アダプタオブジェクトを生成。
 		RecyclerListAdapter adapter = new RecyclerListAdapter(menuList);
 		// RecyclerViewにアダプタオブジェクトを設定。
-		lvMenu.setAdapter(adapter);
+		rvMenu.setAdapter(adapter);
 
 		// 区切り専用のオブジェクトを生成。
 		DividerItemDecoration decorator = new DividerItemDecoration(MainActivity.this, layout.getOrientation());
 		// RecyclerViewに区切り線オブジェクトを設定。
-		lvMenu.addItemDecoration(decorator);
+		rvMenu.addItemDecoration(decorator);
 	}
 
 	/**
@@ -157,6 +157,30 @@ public class MainActivity extends AppCompatActivity {
 		menu.put("name", "青椒肉絲定食");
 		menu.put("price", 900);
 		menu.put("desc", "ピーマンの香り豊かな青椒肉絲にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "八宝菜定食");
+		menu.put("price", 800);
+		menu.put("desc", "具沢山野菜と魚介のスープによるあんが絶妙な八宝菜にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "酢豚定食");
+		menu.put("price", 850);
+		menu.put("desc", "ごろっとお肉が目立つ酢豚にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "豚の角煮定食");
+		menu.put("price", 850);
+		menu.put("desc", "とろとろに煮込んだ豚の角煮にサラダ、ご飯とお味噌汁が付きます。");
+		menuList.add(menu);
+
+		menu = new HashMap<>();
+		menu.put("name", "焼き鳥定食");
+		menu.put("price", 900);
+		menu.put("desc", "柚子胡椒香る焼き鳥にサラダ、ご飯とお味噌汁が付きます。");
 		menuList.add(menu);
 
 		menu = new HashMap<>();

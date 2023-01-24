@@ -1,8 +1,11 @@
 package com.websarva.wings.android.servicesample;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +24,16 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// POST_NOTIFICATIONSの許可が下りていないなら…
+//		if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+//			// 許可をPOST_NOTIFICATIONSに設定。
+//			String[] permissions = {Manifest.permission.POST_NOTIFICATIONS};
+//			// 許可を求めるダイアログを表示。その際、リクエストコードを1000に設定。
+//			ActivityCompat.requestPermissions(MainActivity.this, permissions, 1000);
+//			// onCreate()メソッドを終了。
+//			return;
+//		}
 
 		// Intentオブジェクトを取得。
 		Intent intent = getIntent();

@@ -27,6 +27,13 @@ public class MenuThanksActivity extends AppCompatActivity {
 		// リスト画面から渡されたデータを取得。
 		String menuName = intent.getStringExtra("menuName");
 		String menuPrice = intent.getStringExtra("menuPrice");
+//		Bundle extras = intent.getExtras();
+//		String menuName = "";
+//		String menuPrice = "";
+//		if(extras != null) {
+//			menuName = extras.getString("menuName");
+//			menuPrice = extras.getString("menuPrice");
+//		}
 
 		// 定食名と金額を表示させるTextViewを取得。
 		TextView tvMenuName = findViewById(R.id.tvMenuName);

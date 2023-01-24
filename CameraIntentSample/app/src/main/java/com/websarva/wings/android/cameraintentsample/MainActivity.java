@@ -30,14 +30,13 @@ import java.util.Date;
  */
 public class MainActivity extends AppCompatActivity {
 	/**
-	 * 保存された画像のURI。
-	 */
-	private Uri _imageUri;
-
-	/**
 	 * Cameraアクティビティを起動するためのランチャーオブジェクト。
 	 */
 	ActivityResultLauncher<Intent> _cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallbackFromCamera());
+	/**
+	 * 保存された画像のURI。
+	 */
+	private Uri _imageUri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +82,17 @@ public class MainActivity extends AppCompatActivity {
 	private class ActivityResultCallbackFromCamera implements ActivityResultCallback<ActivityResult> {
 		@Override
 		public void onActivityResult(ActivityResult result) {
-			// カメラアプリからの戻りでかつ撮影成功の場合
+			// カメラアプリで撮影成功の場合
 			if(result.getResultCode() == RESULT_OK) {
 				// 撮影された画像のビットマップデータを取得。
 //				Intent data = result.getData();
-//				Bitmap bitmap = data.getParcelableExtra("data");
+//				Bitmap bitmap;
+//				if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+//					bitmap = data.getParcelableExtra("data", Bitmap.class);
+//				}
+//				else {
+//					bitmap = data.getParcelableExtra("data");
+//				}
 				// 画像を表示するImageViewを取得。
 				ImageView ivCamera = findViewById(R.id.ivCamera);
 				// 撮影された画像をImageViewに設定。

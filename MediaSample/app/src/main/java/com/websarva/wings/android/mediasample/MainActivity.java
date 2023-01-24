@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	@Override
-	protected void onDestroy() {
+	protected void onStop() {
 		// プレーヤーが再生中なら…
 		if(_player.isPlaying()) {
 			// プレーヤーを停止。
@@ -69,10 +69,8 @@ public class MainActivity extends AppCompatActivity {
 		}
 		// プレーヤーを解放。
 		_player.release();
-		// プレーヤー用フィールドをnullに。
-		_player = null;
 		// 親クラスのメソッド呼び出し。
-		super.onDestroy();
+		super.onStop();
 	}
 
 	/**
@@ -121,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
 		_player.seekTo(duration);
 		// 再生中でないなら…
 		if(!_player.isPlaying()) {
+			// 再生ボタンのラベルを「一時停止」に設定。
+			Button btPlay = findViewById(R.id.btPlay);
+			btPlay.setText(R.string.bt_play_pause);
 			// 再生を開始。
 			_player.start();
 		}
